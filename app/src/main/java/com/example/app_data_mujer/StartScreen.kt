@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.example.app_data_mujer.ui.theme.*
 
 @Composable
-fun StartScreen() {
+fun StartScreen(onNavigateToLogin: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.White
@@ -71,7 +71,7 @@ fun StartScreen() {
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
-                onClick = { /* TODO: Navigate to content */ },
+                onClick = onNavigateToLogin,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp)
@@ -195,6 +195,6 @@ fun IllustrationGraphic() {
 @Composable
 fun StartScreenPreview() {
     App_Data_MujerTheme {
-        StartScreen()
+        StartScreen(onNavigateToLogin = {})
     }
 }
