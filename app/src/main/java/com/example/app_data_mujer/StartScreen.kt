@@ -1,5 +1,6 @@
 package com.example.app_data_mujer
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,16 +35,16 @@ fun StartScreen(onNavigateToLogin: () -> Unit) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
-                text = "DATA\nMUJER",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = DataMujerDark,
-                textAlign = TextAlign.Center,
-                lineHeight = 36.sp
+            Image(
+                painter = painterResource(id = R.drawable.logo_data_mujer),
+                contentDescription = "Data Mujer Logo",
+                modifier = Modifier
+                    .height(200.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 80.dp)
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Text(
                 text = "Descubre a las mujeres\nque cambiaron la\nciencia",
@@ -54,21 +56,21 @@ fun StartScreen(onNavigateToLogin: () -> Unit) {
                 lineHeight = 34.sp
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Text(
                 text = "Explora historias, aportes y curiosidades de\ncientíficas increíbles de todo el mundo.",
                 fontSize = 16.sp,
                 color = DataMujerGray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 48.dp)
+                modifier = Modifier.padding(horizontal = 20.dp)
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             IllustrationGraphic()
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Button(
                 onClick = onNavigateToLogin,
@@ -87,11 +89,11 @@ fun StartScreen(onNavigateToLogin: () -> Unit) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Una experiencia educativa de Data Mujer",
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 color = DataMujerGray,
                 modifier = Modifier.padding(bottom = 32.dp)
             )
