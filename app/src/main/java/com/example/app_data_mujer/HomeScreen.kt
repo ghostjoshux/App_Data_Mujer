@@ -36,6 +36,10 @@ import androidx.compose.ui.unit.sp
 import com.example.app_data_mujer.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.random.Random
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.Canvas
+import androidx.compose.ui.geometry.Offset
 
 data class CategoryItem(
     val name: String,
@@ -196,6 +200,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 if (activeGameScreen) {
                     GameQuizContent(
                         questions = currentQuestionsSet,
+                        difficulty = selectedDifficulty,
                         onFinish = { activeGameScreen = false }
                     )
                 } else {
@@ -203,7 +208,12 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                         selectedDifficulty = selectedDifficulty,
                         onDifficultyChange = { selectedDifficulty = it },
                         onStartGame = {
-                            currentQuestionsSet = EasyQuestionsList.shuffled().take(5)
+                            val (sourceList, count) = when (selectedDifficulty) {
+                                "intermedio" -> MediumQuestionsList to 10
+                                "difícil" -> HardQuestionsList to 15
+                                else -> EasyQuestionsList to 5
+                            }
+                            currentQuestionsSet = sourceList.shuffled().take(count)
                             activeGameScreen = true
                         }
                     )
@@ -480,7 +490,7 @@ fun DifficultyItem(
 }
 
 @Composable
-fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
+fun GameQuizContent(questions: List<QuizQuestion>, difficulty: String, onFinish: () -> Unit) {
     if (questions.isEmpty()) return
 
     val scope = rememberCoroutineScope()
@@ -489,31 +499,62 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
     var confirmed by remember { mutableStateOf(false) }
     var points by remember { mutableStateOf(0) }
     var quizFinished by remember { mutableStateOf(false) }
+    
+    var timeElapsed by remember { mutableStateOf(0) }
+    var correctAnswersCount by remember { mutableStateOf(0) }
+
+    LaunchedEffect(quizFinished) {
+        if (!quizFinished) {
+            while (true) {
+                delay(1000)
+                timeElapsed++
+            }
+        }
+    }
 
     val currentQuestion = questions[currentQuestionIndex]
 
     if (quizFinished) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(Icons.Default.Star, contentDescription = null, tint = DataMujerYellow, modifier = Modifier.size(72.dp))
-            Spacer(modifier = Modifier.height(16.dp))
-            Text("¡Reto Terminado!", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Has acumulado $points puntos de ciencia.", fontSize = 16.sp, color = Color.Gray)
-            Spacer(modifier = Modifier.height(32.dp))
-            Button(
-                onClick = onFinish,
+        Box(modifier = Modifier.fillMaxWidth().height(600.dp)) {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = DataMujerTeal)
+                    .fillMaxSize()
+                    .padding(top = 32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Volver al inicio", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Icon(Icons.Default.Star, contentDescription = null, tint = DataMujerYellow, modifier = Modifier.size(72.dp))
+                Spacer(modifier = Modifier.height(16.dp))
+                Text("¡Reto Terminado!", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                Spacer(modifier = Modifier.height(8.dp))
+                
+                val minutes = timeElapsed / 60
+                val seconds = timeElapsed % 60
+                val timeStr = if (minutes > 0) "${minutes}m ${seconds}s" else "${seconds} segundos"
+                
+                Text("Tiempo: $timeStr", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = DataMujerTeal)
+                Text("Has acumulado $points puntos de ciencia.", fontSize = 16.sp, color = Color.Gray)
+                
+                Spacer(modifier = Modifier.height(32.dp))
+                Button(
+                    onClick = onFinish,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = DataMujerTeal)
+                ) {
+                    Text("Volver al inicio", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                }
+            }
+            
+            // Confetti if user gets enough correct answers based on difficulty
+            val threshold = when (difficulty) {
+                "fácil" -> 3
+                "intermedio" -> 5
+                else -> 7 // "difícil"
+            }
+            if (correctAnswersCount >= threshold) {
+                ConfettiOverlay()
             }
         }
     } else {
@@ -523,7 +564,8 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
             // Header Row with Back Button to exit quiz early
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(
                     onClick = onFinish,
@@ -539,6 +581,29 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
                         tint = Color.Black,
                         modifier = Modifier.size(20.dp)
                     )
+                }
+                
+                // Live Chronometer
+                val minutes = timeElapsed / 60
+                val seconds = timeElapsed % 60
+                val liveTimeStr = "%02d:%02d".format(minutes, seconds)
+                
+                Card(
+                    shape = RoundedCornerShape(12.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "⏱ $liveTimeStr",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = DataMujerDark
+                        )
+                    }
                 }
             }
 
@@ -685,6 +750,7 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
                         confirmed = true
                         if (selectedOptionIndex == currentQuestion.correctOptionIndex) {
                             points += 40
+                            correctAnswersCount++
                         }
                         
                         scope.launch {
@@ -723,6 +789,55 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
                 Text(text = "🔥 $points puntos de ciencia", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFFE57373))
             }
             Spacer(modifier = Modifier.height(32.dp))
+        }
+    }
+}
+
+@Composable
+fun ConfettiOverlay() {
+    val infiniteTransition = rememberInfiniteTransition(label = "confetti")
+    val colors = listOf(DataMujerTeal, DataMujerPink, DataMujerYellow, Color.Blue, Color.Green, Color.Magenta)
+    
+    val particles = remember {
+        List(60) {
+            Triple(
+                Random.nextFloat(), // x position
+                Random.nextFloat(), // y offset initial
+                colors.random()      // color
+            )
+        }
+    }
+
+    val yAnim by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(4000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "yPos"
+    )
+
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val canvasWidth = size.width
+        val canvasHeight = size.height
+        
+        // If height is 0 (can happen in scrollable containers during first frames), use a default
+        val actualHeight = if (canvasHeight > 0) canvasHeight else 2000f
+
+        particles.forEach { particle ->
+            val (x, yOffset, color) = particle
+            // Calculate progress with offset to stagger start times
+            val progress = (yAnim + yOffset) % 1f
+            
+            drawCircle(
+                color = color,
+                radius = 5.dp.toPx(),
+                center = Offset(
+                    x = x * canvasWidth,
+                    y = progress * actualHeight
+                )
+            )
         }
     }
 }
