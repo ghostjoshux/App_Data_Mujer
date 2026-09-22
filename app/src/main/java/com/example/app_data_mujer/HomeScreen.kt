@@ -34,6 +34,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_data_mujer.ui.theme.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 data class CategoryItem(
     val name: String,
@@ -481,8 +483,10 @@ fun DifficultyItem(
 fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
     if (questions.isEmpty()) return
 
+    val scope = rememberCoroutineScope()
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedOptionIndex by remember { mutableStateOf(-1) }
+    var confirmed by remember { mutableStateOf(false) }
     var points by remember { mutableStateOf(0) }
     var quizFinished by remember { mutableStateOf(false) }
 
@@ -611,30 +615,52 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
             val optionPrefixes = listOf("A", "B", "C", "D")
             currentQuestion.options.forEachIndexed { idx, optionText ->
                 val isSelected = selectedOptionIndex == idx
+                val isCorrect = idx == currentQuestion.correctOptionIndex
+                
+                val borderColor = when {
+                    confirmed && isCorrect -> Color(0xFF4CAF50) // Green
+                    confirmed && isSelected && !isCorrect -> Color(0xFFF44336) // Red
+                    isSelected -> Color(0xFF9575CD)
+                    else -> Color.Transparent
+                }
+                
+                val backgroundColor = when {
+                    confirmed && isCorrect -> Color(0xFFE8F5E9)
+                    confirmed && isSelected && !isCorrect -> Color(0xFFFFEBEE)
+                    else -> Color.White
+                }
+
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 12.dp)
-                        .clickable { selectedOptionIndex = idx }
-                        .then(if (isSelected) Modifier.border(2.dp, Color(0xFF9575CD), RoundedCornerShape(20.dp)) else Modifier),
+                        .clickable(enabled = !confirmed) { selectedOptionIndex = idx }
+                        .then(if (borderColor != Color.Transparent) Modifier.border(2.dp, borderColor, RoundedCornerShape(20.dp)) else Modifier),
                     shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 0.dp else 2.dp)
+                    colors = CardDefaults.cardColors(containerColor = backgroundColor),
+                    elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected || confirmed) 0.dp else 2.dp)
                 ) {
                     Row(
                         modifier = Modifier.padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        val iconBgColor = when {
+                            confirmed && isCorrect -> Color(0xFF4CAF50)
+                            confirmed && isSelected && !isCorrect -> Color(0xFFF44336)
+                            isSelected -> Color(0xFF9575CD)
+                            else -> Color(0xFFF5F5F5)
+                        }
+
                         Box(
                             modifier = Modifier
                                 .size(36.dp)
                                 .clip(CircleShape)
-                                .background(if (isSelected) Color(0xFF9575CD) else Color(0xFFF5F5F5)),
+                                .background(iconBgColor),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = optionPrefixes[idx],
-                                color = if (isSelected) Color.White else Color.Gray,
+                                color = if (isSelected || (confirmed && isCorrect)) Color.White else Color.Gray,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 14.sp
                             )
@@ -644,7 +670,7 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
                             text = optionText,
                             fontSize = 16.sp,
                             color = Color.Black,
-                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                            fontWeight = if (isSelected || (confirmed && isCorrect)) FontWeight.Bold else FontWeight.Normal
                         )
                     }
                 }
@@ -655,15 +681,21 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
             // Check Answer Button
             Button(
                 onClick = {
-                    if (selectedOptionIndex != -1) {
+                    if (selectedOptionIndex != -1 && !confirmed) {
+                        confirmed = true
                         if (selectedOptionIndex == currentQuestion.correctOptionIndex) {
                             points += 40
                         }
-                        if (currentQuestionIndex + 1 < questions.size) {
-                            currentQuestionIndex++
-                            selectedOptionIndex = -1
-                        } else {
-                            quizFinished = true
+                        
+                        scope.launch {
+                            delay(2000)
+                            if (currentQuestionIndex + 1 < questions.size) {
+                                currentQuestionIndex++
+                                selectedOptionIndex = -1
+                                confirmed = false
+                            } else {
+                                quizFinished = true
+                            }
                         }
                     }
                 },
@@ -672,9 +704,13 @@ fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
                     .height(56.dp),
                 shape = RoundedCornerShape(24.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = DataMujerPink),
-                enabled = selectedOptionIndex != -1
+                enabled = selectedOptionIndex != -1 && !confirmed
             ) {
-                Text("Comprobar respuesta", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = if (confirmed) "Cargando..." else "Comprobar respuesta", 
+                    fontSize = 16.sp, 
+                    fontWeight = FontWeight.Bold
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
