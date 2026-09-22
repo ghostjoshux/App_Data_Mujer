@@ -125,6 +125,8 @@ fun LoginScreen(onBack: () -> Unit, onLoginSuccess: (String) -> Unit) {
                     leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                     shape = RoundedCornerShape(12.dp),
                     colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
                         focusedContainerColor = Color.White,
                         unfocusedContainerColor = Color.White,
                         focusedBorderColor = DataMujerTeal,
@@ -150,16 +152,19 @@ fun LoginScreen(onBack: () -> Unit, onLoginSuccess: (String) -> Unit) {
                             .fillMaxWidth()
                             .clickable { expanded = true },
                         readOnly = true,
-                        placeholder = { Text("Selecciona una ciencia", color = Color.Gray) },
+                        placeholder = { Text("Selecciona una ciencia", color = Color.DarkGray) },
                         trailingIcon = {
                             Icon(
                                 imageVector = Icons.Default.ArrowDropDown,
                                 contentDescription = null,
+                                tint = Color.Black,
                                 modifier = Modifier.clickable { expanded = true }
                             )
                         },
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color.Black,
+                            unfocusedTextColor = Color.Black,
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
                             focusedBorderColor = DataMujerTeal,
@@ -184,7 +189,7 @@ fun LoginScreen(onBack: () -> Unit, onLoginSuccess: (String) -> Unit) {
                     ) {
                         sciences.forEach { science ->
                             DropdownMenuItem(
-                                text = { Text(science) },
+                                text = { Text(science, color = Color.Black, fontSize = 16.sp) },
                                 onClick = {
                                     selectedScience = science
                                     expanded = false

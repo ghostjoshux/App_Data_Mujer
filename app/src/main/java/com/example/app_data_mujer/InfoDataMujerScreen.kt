@@ -171,9 +171,13 @@ fun InfoDataMujerScreen(onBack: () -> Unit) {
             Spacer(modifier = Modifier.height(8.dp))
 
             InfoLinkItem(
-                text = "San José, Costa Rica",
+                text = "+506 8755 2860",
                 bulletColor = Color(0xFF9575CD),
-                onClick = {}
+                onClick = {
+                    val url = "https://api.whatsapp.com/send?phone=50687552860"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                }
             )
 
             Spacer(modifier = Modifier.height(32.dp))

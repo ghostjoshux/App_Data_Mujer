@@ -3,6 +3,8 @@ package com.example.app_data_mujer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -50,6 +52,8 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
         CategoryItem("Computación", "5 historias", "👩‍💻", Color(0xFFC9C1FF)),
         CategoryItem("Ingeniería", "5 historias", "⚙️", Color(0xFF8CD8DA))
     )
+
+    val scrollState = rememberScrollState()
 
     Scaffold(
         containerColor = Color(0xFFEDF7F9),
@@ -142,6 +146,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
+                .verticalScroll(scrollState)
         ) {
             // Header Row
             Row(
@@ -212,48 +217,56 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
             )
 
-            // Grid of categories
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(categories) { item ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(110.dp)
-                            .clickable { onCategoryClick(item.name) },
-                        shape = RoundedCornerShape(20.dp),
-                        colors = CardDefaults.cardColors(containerColor = item.backgroundColor)
-                    ) {
-                        Column(
+            // Dynamic grid calculation inside standard Column to scroll the whole screen smoothly
+            val chunks = categories.chunked(2)
+            chunks.forEach { chunk ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    chunk.forEach { item ->
+                        Card(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.Center
+                                .weight(1f)
+                                .height(110.dp)
+                                .clickable { onCategoryClick(item.name) },
+                            shape = RoundedCornerShape(20.dp),
+                            colors = CardDefaults.cardColors(containerColor = item.backgroundColor)
                         ) {
-                            Text(
-                                text = item.emoji,
-                                fontSize = 24.sp,
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                            Text(
-                                text = item.name,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = item.textColor
-                            )
-                            Text(
-                                text = item.countText,
-                                fontSize = 12.sp,
-                                color = if (item.textColor == Color.White) Color.LightGray else Color.Gray
-                            )
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = item.emoji,
+                                    fontSize = 24.sp,
+                                    modifier = Modifier.padding(bottom = 8.dp)
+                                )
+                                Text(
+                                    text = item.name,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = item.textColor
+                                )
+                                Text(
+                                    text = item.countText,
+                                    fontSize = 12.sp,
+                                    color = if (item.textColor == Color.White) Color.LightGray else Color.Gray
+                                )
+                            }
                         }
+                    }
+                    if (chunk.size == 1) {
+                        Spacer(modifier = Modifier.weight(1f))
                     }
                 }
             }
+            
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
