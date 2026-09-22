@@ -35,7 +35,7 @@ import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onBack: () -> Unit) {
+fun LoginScreen(onBack: () -> Unit, onLoginSuccess: (String) -> Unit) {
     var name by remember { mutableStateOf("") }
     var selectedScience by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -215,7 +215,7 @@ fun LoginScreen(onBack: () -> Unit) {
                         showErrorMsg = true
                     } else {
                         showErrorMsg = false
-                        // TODO: Proceed with login
+                        onLoginSuccess(name)
                     }
                 },
                 modifier = Modifier
@@ -295,6 +295,6 @@ fun LoginScreen(onBack: () -> Unit) {
 @Composable
 fun LoginScreenPreview() {
     App_Data_MujerTheme {
-        LoginScreen(onBack = {})
+        LoginScreen(onBack = {}, onLoginSuccess = {})
     }
 }
