@@ -10,7 +10,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.border
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material.icons.filled.Star
@@ -151,7 +153,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
-                .verticalScroll(if (selectedTab == "explorar") scrollStateExplore else scrollStateQuiz)
+                .verticalScroll(if (selectedTab == "explorar" || selectedTab == "quiz") scrollStateExplore else scrollStateQuiz)
         ) {
             // Header Row (Common for all tabs)
             Row(
@@ -183,10 +185,27 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 }
             }
 
+            var activeGameScreen by remember { mutableStateOf(false) }
+            var currentQuestionsSet by remember { mutableStateOf<List<QuizQuestion>>(emptyList()) }
+
             if (selectedTab == "explorar") {
                 ExploreContent(username, categories, onCategoryClick)
             } else if (selectedTab == "quiz") {
-                QuizContent(selectedDifficulty, onDifficultyChange = { selectedDifficulty = it })
+                if (activeGameScreen) {
+                    GameQuizContent(
+                        questions = currentQuestionsSet,
+                        onFinish = { activeGameScreen = false }
+                    )
+                } else {
+                    QuizContent(
+                        selectedDifficulty = selectedDifficulty,
+                        onDifficultyChange = { selectedDifficulty = it },
+                        onStartGame = {
+                            currentQuestionsSet = EasyQuestionsList.shuffled().take(5)
+                            activeGameScreen = true
+                        }
+                    )
+                }
             } else {
                 // Placeholder for Guardadas
                 Column(
@@ -194,7 +213,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(64.dp), tint = Color.LightGray)
-                    Text("Aquí aparecerán tus historias guardadas.", color = Color.Gray, modifier = Modifier.padding(top = 16.dp))
+                    Text("Aquí aparecerán tus historias guardadas.", color = Color.Black, modifier = Modifier.padding(top = 16.dp))
                 }
             }
         }
@@ -298,7 +317,7 @@ fun ExploreContent(username: String, categories: List<CategoryItem>, onCategoryC
 }
 
 @Composable
-fun QuizContent(selectedDifficulty: String, onDifficultyChange: (String) -> Unit) {
+fun QuizContent(selectedDifficulty: String, onDifficultyChange: (String) -> Unit, onStartGame: () -> Unit) {
     Column {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -386,7 +405,7 @@ fun QuizContent(selectedDifficulty: String, onDifficultyChange: (String) -> Unit
         Spacer(modifier = Modifier.height(48.dp))
         
         Button(
-            onClick = { /* TODO: Start Quiz */ },
+            onClick = onStartGame,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp),
@@ -454,6 +473,220 @@ fun DifficultyItem(
                 tint = if (isSelected) color else Color.LightGray,
                 modifier = Modifier.size(28.dp)
             )
+        }
+    }
+}
+
+@Composable
+fun GameQuizContent(questions: List<QuizQuestion>, onFinish: () -> Unit) {
+    if (questions.isEmpty()) return
+
+    var currentQuestionIndex by remember { mutableStateOf(0) }
+    var selectedOptionIndex by remember { mutableStateOf(-1) }
+    var points by remember { mutableStateOf(0) }
+    var quizFinished by remember { mutableStateOf(false) }
+
+    val currentQuestion = questions[currentQuestionIndex]
+
+    if (quizFinished) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(Icons.Default.Star, contentDescription = null, tint = DataMujerYellow, modifier = Modifier.size(72.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            Text("¡Reto Terminado!", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Has acumulado $points puntos de ciencia.", fontSize = 16.sp, color = Color.Gray)
+            Spacer(modifier = Modifier.height(32.dp))
+            Button(
+                onClick = onFinish,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = DataMujerTeal)
+            ) {
+                Text("Volver al inicio", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            }
+        }
+    } else {
+        Column {
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            // Header Row with Back Button to exit quiz early
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onFinish,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(Color.White)
+                        .border(1.dp, Color.LightGray.copy(alpha = 0.5f), CircleShape)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Salir del quiz",
+                        tint = Color.Black,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            Text(
+                text = "Reto científico",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = DataMujerDark
+            )
+            Text(
+                text = "Pregunta ${currentQuestionIndex + 1} de ${questions.size}",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Progress Bar
+            LinearProgressIndicator(
+                progress = { (currentQuestionIndex + 1).toFloat() / questions.size.toFloat() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(8.dp)
+                    .clip(RoundedCornerShape(4.dp)),
+                color = DataMujerTeal,
+                trackColor = Color.LightGray.copy(alpha = 0.4f)
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Dark Question Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = DataMujerDark)
+            ) {
+                Column(modifier = Modifier.padding(24.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(Color(0xFFEBEBFF))
+                            .padding(horizontal = 12.dp, vertical = 6.dp)
+                    ) {
+                        Text(
+                            text = currentQuestion.category.uppercase(),
+                            color = Color(0xFF5C59AA),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = currentQuestion.question,
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 26.sp
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Elige una opción",
+                        color = Color.White.copy(alpha = 0.6f),
+                        fontSize = 14.sp
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Options List
+            val optionPrefixes = listOf("A", "B", "C", "D")
+            currentQuestion.options.forEachIndexed { idx, optionText ->
+                val isSelected = selectedOptionIndex == idx
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
+                        .clickable { selectedOptionIndex = idx }
+                        .then(if (isSelected) Modifier.border(2.dp, Color(0xFF9575CD), RoundedCornerShape(20.dp)) else Modifier),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 0.dp else 2.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clip(CircleShape)
+                                .background(if (isSelected) Color(0xFF9575CD) else Color(0xFFF5F5F5)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = optionPrefixes[idx],
+                                color = if (isSelected) Color.White else Color.Gray,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 14.sp
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = optionText,
+                            fontSize = 16.sp,
+                            color = Color.Black,
+                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Check Answer Button
+            Button(
+                onClick = {
+                    if (selectedOptionIndex != -1) {
+                        if (selectedOptionIndex == currentQuestion.correctOptionIndex) {
+                            points += 40
+                        }
+                        if (currentQuestionIndex + 1 < questions.size) {
+                            currentQuestionIndex++
+                            selectedOptionIndex = -1
+                        } else {
+                            quizFinished = true
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = DataMujerPink),
+                enabled = selectedOptionIndex != -1
+            ) {
+                Text("Comprobar respuesta", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "🔥 $points puntos de ciencia", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFFE57373))
+            }
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
