@@ -10,8 +10,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.CompassCalibration
+import androidx.compose.foundation.border
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.RadioButtonUnchecked
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lightbulb
@@ -41,6 +44,7 @@ data class CategoryItem(
 @Composable
 fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick: () -> Unit) {
     var selectedTab by remember { mutableStateOf("explorar") }
+    var selectedDifficulty by remember { mutableStateOf("fácil") }
 
     val categories = listOf(
         CategoryItem("Matemáticas", "5 historias", "🧮", Color(0xFFFCDD81)),
@@ -53,7 +57,8 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
         CategoryItem("Ingeniería", "5 historias", "⚙️", Color(0xFF8CD8DA))
     )
 
-    val scrollState = rememberScrollState()
+    val scrollStateExplore = rememberScrollState()
+    val scrollStateQuiz = rememberScrollState()
 
     Scaffold(
         containerColor = Color(0xFFEDF7F9),
@@ -146,9 +151,9 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
-                .verticalScroll(scrollState)
+                .verticalScroll(if (selectedTab == "explorar") scrollStateExplore else scrollStateQuiz)
         ) {
-            // Header Row
+            // Header Row (Common for all tabs)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -178,95 +183,277 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Welcome Greeting
-            Text(
-                text = "Hola, ${username.ifBlank { "Fiorella" }} 👋",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = DataMujerDark,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-            
-            Text(
-                text = "Hoy también puedes descubrir algo increíble.",
-                fontSize = 15.sp,
-                color = Color.Gray,
-                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-            HorizontalDivider(color = DataMujerPink.copy(alpha = 0.5f), thickness = 1.dp)
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Categories Header
-            Text(
-                text = "Categorías",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFF9575CD) // Lavender accent from image
-            )
-            
-            Text(
-                text = "Descubre a las mujeres que dejaron huella en la ciencia.",
-                fontSize = 14.sp,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
-            )
-
-            // Dynamic grid calculation inside standard Column to scroll the whole screen smoothly
-            val chunks = categories.chunked(2)
-            chunks.forEach { chunk ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+            if (selectedTab == "explorar") {
+                ExploreContent(username, categories, onCategoryClick)
+            } else if (selectedTab == "quiz") {
+                QuizContent(selectedDifficulty, onDifficultyChange = { selectedDifficulty = it })
+            } else {
+                // Placeholder for Guardadas
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(top = 48.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    chunk.forEach { item ->
-                        Card(
+                    Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(64.dp), tint = Color.LightGray)
+                    Text("Aquí aparecerán tus historias guardadas.", color = Color.Gray, modifier = Modifier.padding(top = 16.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ExploreContent(username: String, categories: List<CategoryItem>, onCategoryClick: (String) -> Unit) {
+    Column {
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Welcome Greeting
+        Text(
+            text = "Hola, ${username.ifBlank { "Fiorella" }} 👋",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = DataMujerDark,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
+        Text(
+            text = "Hoy también puedes descubrir algo increíble.",
+            fontSize = 15.sp,
+            color = Color.Gray,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider(color = DataMujerPink.copy(alpha = 0.5f), thickness = 1.dp)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Categories Header
+        Text(
+            text = "Categorías",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF9575CD) // Lavender accent from image
+        )
+
+        Text(
+            text = "Descubre a las mujeres que dejaron huella en la ciencia.",
+            fontSize = 14.sp,
+            color = Color.Gray,
+            modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
+        )
+
+        // Dynamic grid calculation
+        val chunks = categories.chunked(2)
+        chunks.forEach { chunk ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                chunk.forEach { item ->
+                    Card(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(110.dp)
+                            .clickable { onCategoryClick(item.name) },
+                        shape = RoundedCornerShape(20.dp),
+                        colors = CardDefaults.cardColors(containerColor = item.backgroundColor)
+                    ) {
+                        Column(
                             modifier = Modifier
-                                .weight(1f)
-                                .height(110.dp)
-                                .clickable { onCategoryClick(item.name) },
-                            shape = RoundedCornerShape(20.dp),
-                            colors = CardDefaults.cardColors(containerColor = item.backgroundColor)
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.Center
                         ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = item.emoji,
-                                    fontSize = 24.sp,
-                                    modifier = Modifier.padding(bottom = 8.dp)
-                                )
-                                Text(
-                                    text = item.name,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = item.textColor
-                                )
-                                Text(
-                                    text = item.countText,
-                                    fontSize = 12.sp,
-                                    color = if (item.textColor == Color.White) Color.LightGray else Color.Gray
-                                )
-                            }
+                            Text(
+                                text = item.emoji,
+                                fontSize = 24.sp,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                            Text(
+                                text = item.name,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = item.textColor
+                            )
+                            Text(
+                                text = item.countText,
+                                fontSize = 12.sp,
+                                color = if (item.textColor == Color.White) Color.LightGray else Color.Gray
+                            )
                         }
                     }
-                    if (chunk.size == 1) {
-                        Spacer(modifier = Modifier.weight(1f))
+                }
+                if (chunk.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun QuizContent(selectedDifficulty: String, onDifficultyChange: (String) -> Unit) {
+    Column {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Reto científico",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            color = DataMujerDark
+        )
+        Text(
+            text = "Elige tu dificultad",
+            fontSize = 18.sp,
+            color = Color.Gray,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+        
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        // Dark Info Card
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = DataMujerDark)
+        ) {
+            Row(
+                modifier = Modifier.padding(24.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.StarBorder,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(48.dp)
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Column {
+                    Text(
+                        text = "¿Qué tanto sabes de ellas?",
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Descubre, aprende y pon a prueba tus conocimientos.",
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp
+                    )
+                }
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        // Difficulty List
+        DifficultyItem(
+            title = "Fácil",
+            description = "Reconoce nombres y áreas científicas.",
+            stars = 1,
+            color = DataMujerTeal,
+            isSelected = selectedDifficulty == "fácil",
+            onClick = { onDifficultyChange("fácil") }
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        DifficultyItem(
+            title = "Intermedio",
+            description = "Relaciona científicas con sus aportes.",
+            stars = 2,
+            color = Color(0xFF9575CD),
+            isSelected = selectedDifficulty == "intermedio",
+            onClick = { onDifficultyChange("intermedio") }
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        DifficultyItem(
+            title = "Difícil",
+            description = "Conecta descubrimientos y detalles.",
+            stars = 3,
+            color = DataMujerPink,
+            isSelected = selectedDifficulty == "difícil",
+            onClick = { onDifficultyChange("difícil") }
+        )
+        
+        Spacer(modifier = Modifier.height(48.dp))
+        
+        Button(
+            onClick = { /* TODO: Start Quiz */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp),
+            shape = RoundedCornerShape(24.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = DataMujerPink)
+        ) {
+            Text("Comenzar quiz", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        }
+        
+        Spacer(modifier = Modifier.height(32.dp))
+    }
+}
+
+@Composable
+fun DifficultyItem(
+    title: String,
+    description: String,
+    stars: Int,
+    color: Color,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .then(if (isSelected) Modifier.border(2.dp, color, RoundedCornerShape(24.dp)) else Modifier),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 0.dp else 2.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(64.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(color.copy(alpha = 0.1f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Row {
+                    repeat(stars) {
+                        Icon(
+                            imageVector = Icons.Default.StarBorder,
+                            contentDescription = null,
+                            tint = color,
+                            modifier = Modifier.size(18.dp)
+                        )
                     }
                 }
             }
             
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
+            
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = title, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.Black)
+                Text(text = description, fontSize = 14.sp, color = Color.Gray)
+            }
+            
+            Icon(
+                imageVector = if (isSelected) Icons.Default.CheckCircle else Icons.Default.RadioButtonUnchecked,
+                contentDescription = null,
+                tint = if (isSelected) color else Color.LightGray,
+                modifier = Modifier.size(28.dp)
+            )
         }
     }
 }
