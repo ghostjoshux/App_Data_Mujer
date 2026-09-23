@@ -77,6 +77,10 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/sofia_kovalevskaya")
                                 } else if (scientistName.equals("Emmy Noether", ignoreCase = true)) {
                                     navController.navigate("scientist/emmy_noether")
+                                } else if (scientistName.equals("Maryam Mirzakhani", ignoreCase = true)) {
+                                    navController.navigate("scientist/maryam_mirzakhani")
+                                } else if (scientistName.equals("Sun-Yung Alice Chang", ignoreCase = true)) {
+                                    navController.navigate("scientist/sun_yung")
                                 }
                             },
                             onAboutClick = {
@@ -98,6 +102,18 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/emmy_noether") {
                         EmmyNoetherDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/maryam_mirzakhani") {
+                        MaryamMirzakhaniDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/sun_yung") {
+                        SunYungAliceChangDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )

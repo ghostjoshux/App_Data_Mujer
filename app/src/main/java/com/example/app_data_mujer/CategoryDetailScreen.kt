@@ -65,8 +65,8 @@ fun CategoryDetailScreen(
             ScientistStory("Sophie Germain", "TEORÍA DE NÚMEROS Y ELASTICIDAD", "Francia • 1776–1831", "🧮", Color(0xFFFCDD81), imageRes = R.drawable.sophie_germain),
             ScientistStory("Sofía Kovalevskaya", "ECUACIONES DIFERENCIALES Y MECÁNICA", "Imperio ruso • 1850–1891", "⚛️", Color(0xFF8CD8DA), imageRes = R.drawable.sofia_k),
             ScientistStory("Emmy Noether", "ÁLGEBRA ABSTRACTA", "Alemania • 1882–1935", "📐", Color(0xFFC9C1FF), imageRes = R.drawable.emmy_noether),
-            ScientistStory("Maryam Mirzakhani", "GEOMETRÍA", "Irán • 1977–2017", "📏", Color(0xFFF4B2DE)),
-            ScientistStory("Sun-Yung Alice Chang", "ANÁLISIS GEOMÉTRICO", "China • 1948–Actualidad", "📊", Color(0xFFFCDD81))
+            ScientistStory("Maryam Mirzakhani", "GEOMETRÍA", "Irán • 1977–2017", "📏", Color(0xFFF4B2DE), imageRes = R.drawable.maryam_m_portada),
+            ScientistStory("Sun-Yung Alice Chang", "ANÁLISIS GEOMÉTRICO", "China • 1948–Actualidad", "📊", Color(0xFFFCDD81), imageRes = R.drawable.sung_yung_portada)
         )
     } else {
         emptyList()
