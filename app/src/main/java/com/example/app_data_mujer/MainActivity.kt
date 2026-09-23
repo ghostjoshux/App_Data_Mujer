@@ -15,10 +15,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        val savedUsername = sharedPrefs.getString("username", null)
+        val savedScience = sharedPrefs.getString("science", null)
+        val startDestination = if (!savedUsername.isNullOrBlank() && !savedScience.isNullOrBlank()) {
+            "home/$savedUsername"
+        } else {
+            "start"
+        }
+
         setContent {
             App_Data_MujerTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "start") {
+                NavHost(navController = navController, startDestination = startDestination) {
                     composable("start") {
                         StartScreen(onNavigateToLogin = {
                             navController.navigate("login")
@@ -29,7 +39,7 @@ class MainActivity : ComponentActivity() {
                             onBack = { navController.popBackStack() },
                             onLoginSuccess = { username ->
                                 navController.navigate("home/$username") {
-                                    popUpTo("start") { inclusive = false }
+                                    popUpTo("start") { inclusive = true }
                                 }
                             }
                         )
@@ -38,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         route = "home/{username}",
                         arguments = listOf(navArgument("username") { type = NavType.StringType })
                     ) { backStackEntry ->
-                        val username = backStackEntry.arguments?.getString("username") ?: "Fiorella"
+                        val username = backStackEntry.arguments?.getString("username") ?: savedUsername ?: "Fiorella"
                         HomeScreen(
                             username = username,
                             onCategoryClick = { categoryName ->

@@ -26,6 +26,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +38,7 @@ import kotlin.random.Random
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(onBack: () -> Unit, onLoginSuccess: (String) -> Unit) {
+    val context = LocalContext.current
     var name by remember { mutableStateOf("") }
     var selectedScience by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -220,6 +223,11 @@ fun LoginScreen(onBack: () -> Unit, onLoginSuccess: (String) -> Unit) {
                         showErrorMsg = true
                     } else {
                         showErrorMsg = false
+                        val sharedPrefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                        sharedPrefs.edit()
+                            .putString("username", name)
+                            .putString("science", selectedScience)
+                            .apply()
                         onLoginSuccess(name)
                     }
                 },
