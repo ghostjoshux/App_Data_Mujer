@@ -18,20 +18,23 @@ class MainActivity : ComponentActivity() {
 
         val sharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val savedUsername = sharedPrefs.getString("username", null)
-        val savedScience = sharedPrefs.getString("science", null)
-        val startDestination = if (!savedUsername.isNullOrBlank() && !savedScience.isNullOrBlank()) {
-            "home/$savedUsername"
-        } else {
-            "start"
-        }
 
         setContent {
             App_Data_MujerTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = startDestination) {
+                NavHost(navController = navController, startDestination = "start") {
                     composable("start") {
                         StartScreen(onNavigateToLogin = {
-                            navController.navigate("login")
+                            val currentSharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+                            val name = currentSharedPrefs.getString("username", null)
+                            val science = currentSharedPrefs.getString("science", null)
+                            if (!name.isNullOrBlank() && !science.isNullOrBlank()) {
+                                navController.navigate("home/$name") {
+                                    popUpTo("start") { inclusive = false }
+                                }
+                            } else {
+                                navController.navigate("login")
+                            }
                         })
                     }
                     composable("login") {

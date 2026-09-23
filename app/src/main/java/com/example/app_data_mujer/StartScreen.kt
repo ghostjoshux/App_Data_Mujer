@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.animation.core.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -137,6 +139,48 @@ fun WavyHeader() {
 
 @Composable
 fun IllustrationGraphic() {
+    val infiniteTransition = rememberInfiniteTransition(label = "illustrationAnimation")
+
+    val discScale by infiniteTransition.animateFloat(
+        initialValue = 0.90f,
+        targetValue = 1.12f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1800, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "discScale"
+    )
+
+    val discFloat by infiniteTransition.animateFloat(
+        initialValue = -8f,
+        targetValue = 8f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2200, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "discFloat"
+    )
+
+    val pinkFloat by infiniteTransition.animateFloat(
+        initialValue = -10f,
+        targetValue = 10f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1600, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "pinkFloat"
+    )
+
+    val tealFloat by infiniteTransition.animateFloat(
+        initialValue = 10f,
+        targetValue = -10f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "tealFloat"
+    )
+
     Box(
         modifier = Modifier
             .size(width = 280.dp, height = 180.dp)
@@ -146,19 +190,24 @@ fun IllustrationGraphic() {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Circle with Yellow Center
+            // Circle with Yellow Center (Pulsing and floating safely)
             Box(
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(90.dp)
+                    .graphicsLayer {
+                        translationY = discFloat
+                        scaleX = discScale
+                        scaleY = discScale
+                    }
                     .clip(CircleShape)
                     .background(Color.White),
                 contentAlignment = Alignment.Center
             ) {
                 Box(
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(36.dp)
                         .clip(CircleShape)
                         .background(DataMujerYellow)
                 )
@@ -170,23 +219,29 @@ fun IllustrationGraphic() {
                 // Pink Box with Female Symbol
                 Box(
                     modifier = Modifier
-                        .size(width = 100.dp, height = 60.dp)
+                        .size(width = 95.dp, height = 55.dp)
+                        .graphicsLayer {
+                            translationY = pinkFloat
+                        }
                         .clip(RoundedCornerShape(12.dp))
                         .background(DataMujerPink),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("♀", color = Color.White, fontSize = 24.sp)
+                    Text("♀", color = Color.White, fontSize = 22.sp)
                 }
 
                 // Teal Box with Sparkle
                 Box(
                     modifier = Modifier
-                        .size(width = 120.dp, height = 60.dp)
+                        .size(width = 110.dp, height = 55.dp)
+                        .graphicsLayer {
+                            translationY = tealFloat
+                        }
                         .clip(RoundedCornerShape(12.dp))
                         .background(DataMujerTeal),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("✦", color = Color.White, fontSize = 24.sp)
+                    Text("✦", color = Color.White, fontSize = 22.sp)
                 }
             }
         }
