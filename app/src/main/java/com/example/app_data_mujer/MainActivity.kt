@@ -73,6 +73,8 @@ class MainActivity : ComponentActivity() {
                             onScientistClick = { scientistName ->
                                 if (scientistName.equals("Sophie Germain", ignoreCase = true)) {
                                     navController.navigate("scientist/sophie_germain")
+                                } else if (scientistName.equals("Sofía Kovalevskaya", ignoreCase = true)) {
+                                    navController.navigate("scientist/sofia_kovalevskaya")
                                 }
                             },
                             onAboutClick = {
@@ -82,6 +84,12 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/sophie_germain") {
                         SophieGermainDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/sofia_kovalevskaya") {
+                        SofiaKovalevskayaDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )
