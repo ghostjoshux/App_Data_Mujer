@@ -55,7 +55,23 @@ class MainActivity : ComponentActivity() {
                         HomeScreen(
                             username = username,
                             onCategoryClick = { categoryName ->
-                                // TODO: Handle category click
+                                navController.navigate("category/$categoryName")
+                            },
+                            onAboutClick = {
+                                navController.navigate("info")
+                            }
+                        )
+                    }
+                    composable(
+                        route = "category/{categoryName}",
+                        arguments = listOf(navArgument("categoryName") { type = NavType.StringType })
+                    ) { backStackEntry ->
+                        val categoryName = backStackEntry.arguments?.getString("categoryName") ?: "Matemáticas"
+                        CategoryDetailScreen(
+                            categoryName = categoryName,
+                            onBack = { navController.popBackStack() },
+                            onScientistClick = { scientistName ->
+                                // TODO: Handle scientist click
                             },
                             onAboutClick = {
                                 navController.navigate("info")
