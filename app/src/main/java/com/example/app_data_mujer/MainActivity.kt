@@ -71,11 +71,19 @@ class MainActivity : ComponentActivity() {
                             categoryName = categoryName,
                             onBack = { navController.popBackStack() },
                             onScientistClick = { scientistName ->
-                                // TODO: Handle scientist click
+                                if (scientistName.equals("Sophie Germain", ignoreCase = true)) {
+                                    navController.navigate("scientist/sophie_germain")
+                                }
                             },
                             onAboutClick = {
                                 navController.navigate("info")
                             }
+                        )
+                    }
+                    composable("scientist/sophie_germain") {
+                        SophieGermainDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
                         )
                     }
                     composable("info") {
