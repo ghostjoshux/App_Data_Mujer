@@ -137,7 +137,7 @@ fun EmmyNoetherDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.emmy_noether),
+                        painter = painterResource(id = R.drawable.emmy_noether_perfil),
                         contentDescription = "Emmy Noether",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
