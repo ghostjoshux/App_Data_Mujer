@@ -32,7 +32,7 @@ fun EmmyNoetherDetailScreen(
     onFollowExploring: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite("Emmy Noether")) }
     val scrollState = rememberScrollState()
 
     val primaryPurple = Color(0xFF5C3398)
@@ -65,7 +65,10 @@ fun EmmyNoetherDetailScreen(
                 }
 
                 IconButton(
-                    onClick = { isFavorite = !isFavorite },
+                    onClick = { 
+                        FavoritesManager.toggleFavorite("Emmy Noether")
+                        isFavorite = FavoritesManager.isFavorite("Emmy Noether")
+                    },
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)

@@ -33,7 +33,7 @@ fun SophieGermainDetailScreen(
     onFollowExploring: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite("Sophie Germain")) }
     val scrollState = rememberScrollState()
 
     val primaryPurple = Color(0xFF5C3398)
@@ -66,7 +66,10 @@ fun SophieGermainDetailScreen(
                 }
 
                 IconButton(
-                    onClick = { isFavorite = !isFavorite },
+                    onClick = { 
+                        FavoritesManager.toggleFavorite("Sophie Germain")
+                        isFavorite = FavoritesManager.isFavorite("Sophie Germain")
+                    },
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)

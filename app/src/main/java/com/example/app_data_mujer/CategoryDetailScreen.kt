@@ -170,7 +170,7 @@ fun CategoryDetailScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(scientists) { scientist ->
-                        var isFavorite by remember { mutableStateOf(false) }
+                        var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite(scientist.name)) }
 
                         Card(
                             modifier = Modifier
@@ -230,7 +230,10 @@ fun CategoryDetailScreen(
                                     }
 
                                     IconButton(
-                                        onClick = { isFavorite = !isFavorite },
+                                        onClick = { 
+                                            FavoritesManager.toggleFavorite(scientist.name)
+                                            isFavorite = FavoritesManager.isFavorite(scientist.name)
+                                        },
                                         modifier = Modifier.size(24.dp)
                                     ) {
                                         Icon(

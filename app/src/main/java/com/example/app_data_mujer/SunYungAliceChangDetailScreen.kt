@@ -32,7 +32,7 @@ fun SunYungAliceChangDetailScreen(
     onFollowExploring: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite("Sun-Yung Alice Chang")) }
     val scrollState = rememberScrollState()
 
     val primaryPurple = Color(0xFF5C3398)
@@ -65,7 +65,10 @@ fun SunYungAliceChangDetailScreen(
                 }
 
                 IconButton(
-                    onClick = { isFavorite = !isFavorite },
+                    onClick = { 
+                        FavoritesManager.toggleFavorite("Sun-Yung Alice Chang")
+                        isFavorite = FavoritesManager.isFavorite("Sun-Yung Alice Chang")
+                    },
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)

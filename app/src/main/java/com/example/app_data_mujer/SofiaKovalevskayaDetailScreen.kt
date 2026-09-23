@@ -32,7 +32,7 @@ fun SofiaKovalevskayaDetailScreen(
     onFollowExploring: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite("Sofía Kovalevskaya")) }
     val scrollState = rememberScrollState()
 
     val primaryPurple = Color(0xFF5C3398)
@@ -65,7 +65,10 @@ fun SofiaKovalevskayaDetailScreen(
                 }
 
                 IconButton(
-                    onClick = { isFavorite = !isFavorite },
+                    onClick = { 
+                        FavoritesManager.toggleFavorite("Sofía Kovalevskaya")
+                        isFavorite = FavoritesManager.isFavorite("Sofía Kovalevskaya")
+                    },
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)

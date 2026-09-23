@@ -50,7 +50,7 @@ data class CategoryItem(
 )
 
 @Composable
-fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick: () -> Unit) {
+fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick: () -> Unit, onScientistClick: (String) -> Unit) {
     var selectedTab by remember { mutableStateOf("explorar") }
     var selectedDifficulty by remember { mutableStateOf("fácil") }
 
@@ -219,13 +219,96 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                     )
                 }
             } else {
-                // Placeholder for Guardadas
-                Column(
-                    modifier = Modifier.fillMaxWidth().padding(top = 48.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(64.dp), tint = Color.LightGray)
-                    Text("Aquí aparecerán tus historias guardadas.", color = Color.Black, modifier = Modifier.padding(top = 16.dp))
+                // Guardadas Tab Content
+                val savedFavorites = FavoritesManager.favoriteScientists
+                if (savedFavorites.isEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(top = 48.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(64.dp), tint = Color.LightGray)
+                        Text("Aquí aparecerán tus historias guardadas.", color = Color.Black, modifier = Modifier.padding(top = 16.dp))
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Text(
+                            text = "Tus historias guardadas",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = DataMujerDark
+                        )
+                        Text(
+                            text = "Accede rápidamente a tus científicas favoritas.",
+                            fontSize = 14.sp,
+                            color = Color.Gray,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+
+                        savedFavorites.forEach { scientistName ->
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { onScientistClick(scientistName) },
+                                shape = RoundedCornerShape(20.dp),
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(48.dp)
+                                                .clip(CircleShape)
+                                                .background(DataMujerPink.copy(alpha = 0.1f)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Favorite,
+                                                contentDescription = null,
+                                                tint = DataMujerPink,
+                                                modifier = Modifier.size(24.dp)
+                                            )
+                                        }
+                                        Column {
+                                            Text(
+                                                text = scientistName,
+                                                fontSize = 16.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = DataMujerDark
+                                            )
+                                            Text(
+                                                text = "Matemáticas",
+                                                fontSize = 12.sp,
+                                                color = Color.Gray
+                                            )
+                                        }
+                                    }
+
+                                    IconButton(
+                                        onClick = { FavoritesManager.toggleFavorite(scientistName) }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Favorite,
+                                            contentDescription = "Eliminar de favoritos",
+                                            tint = DataMujerPink
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -849,7 +932,8 @@ fun HomeScreenPreview() {
         HomeScreen(
             username = "Fiorella", 
             onCategoryClick = {}, 
-            onAboutClick = {}
+            onAboutClick = {},
+            onScientistClick = {}
         )
     }
 }

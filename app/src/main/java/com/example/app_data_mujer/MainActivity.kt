@@ -59,6 +59,15 @@ class MainActivity : ComponentActivity() {
                             },
                             onAboutClick = {
                                 navController.navigate("info")
+                            },
+                            onScientistClick = { scientistName ->
+                                when (scientistName) {
+                                    "Sophie Germain" -> navController.navigate("scientist/sophie_germain")
+                                    "Sofía Kovalevskaya" -> navController.navigate("scientist/sofia_kovalevskaya")
+                                    "Emmy Noether" -> navController.navigate("scientist/emmy_noether")
+                                    "Maryam Mirzakhani" -> navController.navigate("scientist/maryam_mirzakhani")
+                                    "Sun-Yung Alice Chang" -> navController.navigate("scientist/sun_yung")
+                                }
                             }
                         )
                     }
