@@ -72,7 +72,7 @@ fun CategoryDetailScreen(
         isFisica -> listOf(
             ScientistStory("Lise Meitner", "FÍSICA NUCLEAR", "Australia-Hungría • 1878–1968", "⚛️", Color(0xFF8CD8DA), imageRes = R.drawable.lisa_meitner_portada),
             ScientistStory("Mary Tsingou", "FÍSICA MATEMÁTICA", "Estados Unidos • 1928–Actualidad", "🖥️", Color(0xFFC9C1FF), imageRes = R.drawable.mary_tsinguo_portada),
-            ScientistStory("Donna Strickland", "LÁSERES DE ALTA INTENSIDAD", "Canadá • 1959–Actualidad", "🔴", Color(0xFFF4B2DE)),
+            ScientistStory("Donna Strickland", "LÁSERES DE ALTA INTENSIDAD", "Canadá • 1959–Actualidad", "🔴", Color(0xFFF4B2DE), imageRes = R.drawable.donna_strickland),
             ScientistStory("Helen Czerski", "FÍSICA DE OCÉANOS", "Inglaterra • 1978–Actualidad", "🌊", Color(0xFFFCDD81))
         )
         else -> emptyList()
