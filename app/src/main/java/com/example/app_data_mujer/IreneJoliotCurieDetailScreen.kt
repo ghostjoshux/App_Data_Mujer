@@ -27,12 +27,13 @@ import androidx.compose.ui.unit.sp
 import com.example.app_data_mujer.ui.theme.*
 
 @Composable
-fun HelenCzerskiDetailScreen(
+fun IreneJoliotCurieDetailScreen(
     onBack: () -> Unit,
     onFollowExploring: () -> Unit
 ) {
+    val scientistName = "Irène Joliot-Curie"
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
-    var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite("Helen Czerski")) }
+    var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite(scientistName)) }
     val scrollState = rememberScrollState()
 
     val primaryPurple = Color(0xFF5C3398)
@@ -66,8 +67,8 @@ fun HelenCzerskiDetailScreen(
 
                 IconButton(
                     onClick = { 
-                        FavoritesManager.toggleFavorite("Helen Czerski")
-                        isFavorite = FavoritesManager.isFavorite("Helen Czerski")
+                        FavoritesManager.toggleFavorite(scientistName)
+                        isFavorite = FavoritesManager.isFavorite(scientistName)
                     },
                     modifier = Modifier
                         .size(40.dp)
@@ -140,8 +141,8 @@ fun HelenCzerskiDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.helen_czerki_perfil),
-                        contentDescription = "Helen Czerski",
+                        painter = painterResource(id = R.drawable.irene_joliot_perfil),
+                        contentDescription = scientistName,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
@@ -156,7 +157,7 @@ fun HelenCzerskiDetailScreen(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text(
-                            text = "\"Lo cotidiano está lleno de física esperando ser observada.\"",
+                            text = "\"La ciencia heredada también puede convertirse en ciencia nueva.\"",
                             fontSize = 12.sp,
                             fontStyle = FontStyle.Italic,
                             color = Color.DarkGray,
@@ -164,7 +165,7 @@ fun HelenCzerskiDetailScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "— HELEN CZERSKI",
+                            text = "— IRÈNE JOLIOT-CURIE",
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             color = primaryPurple
@@ -186,8 +187,8 @@ fun HelenCzerskiDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Helen Czerski",
-                        fontSize = 28.sp,
+                        text = "Irène Joliot-Curie",
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = DataMujerDark
                     )
@@ -201,9 +202,9 @@ fun HelenCzerskiDetailScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            Text(text = "⚛️", fontSize = 12.sp)
+                            Text(text = "🧪", fontSize = 12.sp)
                             Text(
-                                text = "FÍSICA",
+                                text = "QUÍMICA",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = primaryPurple
@@ -213,7 +214,7 @@ fun HelenCzerskiDetailScreen(
                 }
 
                 Text(
-                    text = "Física de océanos y burbujas",
+                    text = "Radioquímica y física nuclear",
                     fontSize = 14.sp,
                     color = Color.Gray,
                     modifier = Modifier.padding(top = 2.dp)
@@ -238,9 +239,9 @@ fun HelenCzerskiDetailScreen(
 
             // Tab Content with generous spacing
             when (selectedTab) {
-                0 -> HelenBiografiaContent(cardBg, primaryPurple)
-                1 -> HelenAportesContent(cardBg, primaryPurple)
-                2 -> HelenCuriosidadesContent(cardBg, primaryPurple)
+                0 -> IreneBiografiaContent(cardBg, primaryPurple)
+                1 -> IreneAportesContent(cardBg, primaryPurple)
+                2 -> IreneCuriosidadesContent(cardBg, primaryPurple)
             }
 
             Spacer(modifier = Modifier.height(48.dp))
@@ -249,7 +250,7 @@ fun HelenCzerskiDetailScreen(
 }
 
 @Composable
-fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
+fun IreneBiografiaContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -276,7 +277,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Física, oceanógrafa, autora y comunicadora científica que estudia cómo las burbujas y las olas influyen en el océano y el clima.",
+                    text = "Física y química que, junto con Frédéric Joliot-Curie, descubrió la radiactividad artificial.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -299,7 +300,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.Cake, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Nacimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "1 de noviembre de 1978", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "12 de septiembre de 1897", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
 
@@ -313,7 +314,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.LocationOn, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Lugar de nacimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Manchester, Inglaterra", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "París, Francia", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
         }
@@ -332,7 +333,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.Public, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Nacionalidad", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Británica", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Francesa", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
 
@@ -346,7 +347,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Especialidad", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Física de océanos y burbujas", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Radioquímica y física nuclear", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = DataMujerDark, maxLines = 2)
                 }
             }
         }
@@ -373,13 +374,13 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
-                TimelineItem(year = "2001", text = "Se graduó en física en la Universidad de Cambridge.")
+                TimelineItem(year = "1914", text = "Ayudó en unidades móviles de rayos X durante la Primera Guerra Mundial.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "2006", text = "Obtuvo el doctorado en física teórica.")
+                TimelineItem(year = "1925", text = "Obtuvo el doctorado en la Sorbona.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "2011", text = "Comenzó a presentar destacados programas científicos para la BBC.")
+                TimelineItem(year = "1934", text = "Anunció junto a su esposo el hallazgo de la radiactividad artificial.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "2023", text = "Publicó su aclamado libro The Blue Machine sobre los océanos.")
+                TimelineItem(year = "1935", text = "Recibió el Premio Nobel de Química.")
             }
         }
 
@@ -397,7 +398,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
             ) {
                 Text(text = "❝", fontSize = 36.sp, color = primaryColor, fontWeight = FontWeight.Bold)
                 Text(
-                    text = "Lo cotidiano está lleno de física esperando ser observada.",
+                    text = "La ciencia heredada también puede convertirse en ciencia nueva.",
                     fontSize = 13.sp,
                     fontStyle = FontStyle.Italic,
                     color = Color.DarkGray,
@@ -409,7 +410,7 @@ fun HelenBiografiaContent(cardBg: Color, primaryColor: Color) {
 }
 
 @Composable
-fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
+fun IreneAportesContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -429,7 +430,7 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
             }
         }
 
-        // Bubbles physics Card
+        // Artificial radioactivity Card
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -437,10 +438,10 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Física de las burbujas", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Descubrimiento de la radiactividad artificial", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Investiga la física de las burbujas y el intercambio de gases entre el océano y la atmósfera.",
+                    text = "Demostró que podían crearse isótopos radiactivos al bombardear elementos estables con partículas alfa.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -448,7 +449,7 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
             }
         }
 
-        // Row of 2 cards (Breaking waves & Scientific communication)
+        // Row of 2 cards
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -460,9 +461,9 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Estudio de olas rompientes", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                    Text(text = "Investigación de neutrones y positrones", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(text = "Analiza cómo se forman y rompen las olas y su papel en los procesos oceánicos.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                    Text(text = "Estudió el comportamiento de partículas subatómicas y sus aplicaciones.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
                 }
             }
 
@@ -473,9 +474,9 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Divulgación científica", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                    Text(text = "Promoción de la ciencia", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(text = "Comunica la ciencia mediante libros, radio y televisión, acercando la física al público.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                    Text(text = "Impulsó la investigación nuclear y la educación científica en Francia.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
                 }
             }
         }
@@ -488,10 +489,10 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Impacto en la ciencia y la sociedad", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Impacto en la medicina y la industria", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Ayuda a mejorar la comprensión de procesos oceánicos relevantes para modelos climáticos y fortalece la cultura científica.",
+                    text = "La producción de radioisótopos transformó la medicina, la investigación y la industria en todo el mundo.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -502,7 +503,7 @@ fun HelenAportesContent(cardBg: Color, primaryColor: Color) {
 }
 
 @Composable
-fun HelenCuriosidadesContent(cardBg: Color, primaryColor: Color) {
+fun IreneCuriosidadesContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -529,10 +530,10 @@ fun HelenCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Campañas en el mar", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Hija de Marie y Pierre Curie", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Ha trabajado en campañas científicas internacionales directamente en alta mar.",
+                    text = "Continuó el brillante legado científico de su familia, siendo educada en un entorno de excelencia intelectual.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -547,10 +548,10 @@ fun HelenCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Objetos cotidianos", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Trabajó con rayos X en la guerra", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Usa objetos cotidianos para explicar física compleja de forma accesible e intuitiva.",
+                    text = "Acompañó a su madre Marie Curie en el frente de batalla durante la Primera Guerra Mundial operando equipos de radiografía.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -565,10 +566,10 @@ fun HelenCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Profesora en UCL", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Fue subsecretaria de Estado", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Es profesora e investigadora en University College London (UCL).",
+                    text = "Ocupó el cargo de subsecretaria para Investigación Científica en Francia antes de que las mujeres tuvieran derecho al voto en su país.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -583,10 +584,10 @@ fun HelenCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Medalla Kelvin", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Premio Nobel de Química 1935", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Recibió la Medalla Kelvin del Institute of Physics en 2018 por su trabajo en divulgación.",
+                    text = "Lo recibió junto a su esposo Frédéric Joliot-Curie por la síntesis de nuevos elementos radiactivos.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp

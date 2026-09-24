@@ -60,6 +60,7 @@ fun CategoryDetailScreen(
 
     val isMatematicas = categoryName.equals("Matemáticas", ignoreCase = true) || categoryName.equals("Matematicas", ignoreCase = true)
     val isFisica = categoryName.equals("Física", ignoreCase = true) || categoryName.equals("Fisica", ignoreCase = true)
+    val isQuimica = categoryName.equals("Química", ignoreCase = true) || categoryName.equals("Quimica", ignoreCase = true)
 
     val scientists = when {
         isMatematicas -> listOf(
@@ -74,6 +75,13 @@ fun CategoryDetailScreen(
             ScientistStory("Mary Tsingou", "FÍSICA MATEMÁTICA", "Estados Unidos • 1928–Actualidad", "🖥️", Color(0xFFC9C1FF), imageRes = R.drawable.mary_tsinguo_portada),
             ScientistStory("Donna Strickland", "LÁSERES DE ALTA INTENSIDAD", "Canadá • 1959–Actualidad", "🔴", Color(0xFFF4B2DE), imageRes = R.drawable.donna_strickland),
             ScientistStory("Helen Czerski", "FÍSICA DE OCÉANOS", "Inglaterra • 1978–Actualidad", "🌊", Color(0xFFFCDD81), imageRes = R.drawable.helen_czerski_portada)
+        )
+        isQuimica -> listOf(
+            ScientistStory("Stephanie Kwolek", "QUÍMICA DE POLÍMEROS", "Estados Unidos • 1923–2014", "🧪", Color(0xFFF4B2DE), imageRes = R.drawable.stephanie_kwolek_portada),
+            ScientistStory("Marie-Anne Pierrette Paulze-Lavoisier", "DOCUMENTACIÓN, TRADUCCIÓN E ILUSTRACIÓN CIENTÍFICA", "Francia • 1758–1836", "🧪", Color(0xFF8CD8DA), imageRes = R.drawable.marie_anne_portada),
+            ScientistStory("Irène Joliot-Curie", "RADIOQUÍMICA Y FÍSICA NUCLEAR", "Francia • 1897–1956", "⚗️", Color(0xFFC9C1FF), imageRes = R.drawable.irene_portada),
+            ScientistStory("Marie Curie", "RADIOACTIVIDAD Y QUÍMICA NUCLEAR", "Polonia • 1867–1934", "⚛️", Color(0xFFFCDD81), imageRes = R.drawable.marie_curie_portada),
+            ScientistStory("Rosalind Franklin", "CRISTALOGRAFÍA DE RAYOS X", "Inglaterra • 1920–1958", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.rosalind_franklin_portada)
         )
         else -> emptyList()
     }
