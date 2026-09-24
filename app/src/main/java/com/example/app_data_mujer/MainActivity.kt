@@ -67,6 +67,7 @@ class MainActivity : ComponentActivity() {
                                     "Emmy Noether" -> navController.navigate("scientist/emmy_noether")
                                     "Maryam Mirzakhani" -> navController.navigate("scientist/maryam_mirzakhani")
                                     "Sun-Yung Alice Chang" -> navController.navigate("scientist/sun_yung")
+                                    "Lise Meitner" -> navController.navigate("scientist/lise_meitner")
                                 }
                             }
                         )
@@ -90,6 +91,8 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/maryam_mirzakhani")
                                 } else if (scientistName.equals("Sun-Yung Alice Chang", ignoreCase = true)) {
                                     navController.navigate("scientist/sun_yung")
+                                } else if (scientistName.equals("Lise Meitner", ignoreCase = true)) {
+                                    navController.navigate("scientist/lise_meitner")
                                 }
                             },
                             onAboutClick = {
@@ -123,6 +126,12 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/sun_yung") {
                         SunYungAliceChangDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/lise_meitner") {
+                        LiseMeitnerDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )

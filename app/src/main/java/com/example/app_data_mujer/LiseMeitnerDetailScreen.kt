@@ -140,7 +140,7 @@ fun LiseMeitnerDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.lisa_meitner_portada),
+                        painter = painterResource(id = R.drawable.lise_meitner_perfil),
                         contentDescription = "Lise Meitner",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -518,7 +518,7 @@ fun LiseCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Rechazó el Proyecto Manhattan", fontSize = 15.sp, fontWeight = FontWeight.Bold, color, color = primaryColor)
+                Text(text = "Rechazó el Proyecto Manhattan", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     text = "Se negó rotundamente a participar en la creación de la bomba atómica, afirmando que jamás construiría un arma de destrucción.",
