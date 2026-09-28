@@ -61,6 +61,7 @@ fun CategoryDetailScreen(
     val isMatematicas = categoryName.equals("Matemáticas", ignoreCase = true) || categoryName.equals("Matematicas", ignoreCase = true)
     val isFisica = categoryName.equals("Física", ignoreCase = true) || categoryName.equals("Fisica", ignoreCase = true)
     val isQuimica = categoryName.equals("Química", ignoreCase = true) || categoryName.equals("Quimica", ignoreCase = true)
+    val isBiologia = categoryName.equals("Biología", ignoreCase = true) || categoryName.equals("Biologia", ignoreCase = true)
 
     val scientists = when {
         isMatematicas -> listOf(
@@ -82,6 +83,13 @@ fun CategoryDetailScreen(
             ScientistStory("Irène Joliot-Curie", "RADIOQUÍMICA Y FÍSICA NUCLEAR", "Francia • 1897–1956", "⚗️", Color(0xFFC9C1FF), imageRes = R.drawable.irene_portada),
             ScientistStory("Marie Curie", "RADIOACTIVIDAD Y QUÍMICA NUCLEAR", "Polonia • 1867–1934", "⚛️", Color(0xFFFCDD81), imageRes = R.drawable.marie_curie_portada),
             ScientistStory("Rosalind Franklin", "CRISTALOGRAFÍA DE RAYOS X", "Inglaterra • 1920–1958", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.rosalind_franklin_portada)
+        )
+        isBiologia -> listOf(
+            ScientistStory("Margarita Salas", "BIOQUÍMICA Y BIOLOGÍA MOLECULAR", "España • 1938–2019", "🔬", Color(0xFFC9C1FF), imageRes = R.drawable.margarita_salas_portada),
+            ScientistStory("Barbara McClintock", "CITOGENÉTICA", "Estados Unidos • 1902–1992", "🌽", Color(0xFFFCDD81), imageRes = R.drawable.barbara_mcclintock_portada),
+            ScientistStory("Lynn Margulis", "BIOLOGÍA EVOLUTIVA Y MICROBIOLOGÍA", "Estados Unidos • 1938–2011", "🦠", Color(0xFF8CD8DA), imageRes = R.drawable.lynn_margulis_portada),
+            ScientistStory("Nettie Stevens", "GENÉTICA Y CITOLOGÍA", "Estados Unidos • 1861–1912", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.nettie_stevens_portada),
+            ScientistStory("Elizabeth Blackburn", "BIOLOGÍA MOLECULAR", "Australiana • 1948–Actualidad", "🔬", Color(0xFFC9C1FF), imageRes = R.drawable.elizabeth_blackburn_portada)
         )
         else -> emptyList()
     }
