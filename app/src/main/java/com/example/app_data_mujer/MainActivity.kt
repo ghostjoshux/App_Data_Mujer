@@ -81,6 +81,10 @@ class MainActivity : ComponentActivity() {
                                     "Lynn Margulis" -> navController.navigate("scientist/lynn_margulis")
                                     "Nettie Stevens" -> navController.navigate("scientist/nettie_stevens")
                                     "Elizabeth Blackburn" -> navController.navigate("scientist/elizabeth_blackburn")
+                                    "Rosalyn Yalow" -> navController.navigate("scientist/rosalyn_yalow")
+                                    "Flora de Pablo" -> navController.navigate("scientist/flora_de_pablo")
+                                    "Cecilia Grierson" -> navController.navigate("scientist/cecilia_grierson")
+                                    "Patricia Bath" -> navController.navigate("scientist/patricia_bath")
                                 }
                             }
                         )
@@ -132,6 +136,14 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/nettie_stevens")
                                 } else if (scientistName.contains("Elizabeth", ignoreCase = true) || scientistName.contains("Blackburn", ignoreCase = true)) {
                                     navController.navigate("scientist/elizabeth_blackburn")
+                                } else if (scientistName.contains("Rosalyn", ignoreCase = true) || scientistName.contains("Yalow", ignoreCase = true)) {
+                                    navController.navigate("scientist/rosalyn_yalow")
+                                } else if (scientistName.contains("Flora", ignoreCase = true) || scientistName.contains("Pablo", ignoreCase = true)) {
+                                    navController.navigate("scientist/flora_de_pablo")
+                                } else if (scientistName.contains("Cecilia", ignoreCase = true) || scientistName.contains("Grierson", ignoreCase = true)) {
+                                    navController.navigate("scientist/cecilia_grierson")
+                                } else if (scientistName.contains("Patricia", ignoreCase = true) || scientistName.contains("Bath", ignoreCase = true)) {
+                                    navController.navigate("scientist/patricia_bath")
                                 }
                             },
                             onAboutClick = {
@@ -249,6 +261,30 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/elizabeth_blackburn") {
                         ElizabethBlackburnDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/rosalyn_yalow") {
+                        RosalynYalowDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/flora_de_pablo") {
+                        FloraDePabloDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/cecilia_grierson") {
+                        CeciliaGriersonDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/patricia_bath") {
+                        PatriciaBathDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )

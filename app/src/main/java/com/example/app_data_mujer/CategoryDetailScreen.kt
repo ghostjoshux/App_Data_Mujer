@@ -62,6 +62,7 @@ fun CategoryDetailScreen(
     val isFisica = categoryName.equals("Física", ignoreCase = true) || categoryName.equals("Fisica", ignoreCase = true)
     val isQuimica = categoryName.equals("Química", ignoreCase = true) || categoryName.equals("Quimica", ignoreCase = true)
     val isBiologia = categoryName.equals("Biología", ignoreCase = true) || categoryName.equals("Biologia", ignoreCase = true)
+    val isMedicina = categoryName.equals("Medicina", ignoreCase = true)
 
     val scientists = when {
         isMatematicas -> listOf(
@@ -90,6 +91,13 @@ fun CategoryDetailScreen(
             ScientistStory("Lynn Margulis", "BIOLOGÍA EVOLUTIVA Y MICROBIOLOGÍA", "Estados Unidos • 1938–2011", "🦠", Color(0xFF8CD8DA), imageRes = R.drawable.lynn_margulis_portada),
             ScientistStory("Nettie Stevens", "GENÉTICA Y CITOLOGÍA", "Estados Unidos • 1861–1912", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.nettie_stevens_portada),
             ScientistStory("Elizabeth Blackburn", "BIOLOGÍA MOLECULAR", "Australiana • 1948–Actualidad", "🔬", Color(0xFFC9C1FF), imageRes = R.drawable.elizabeth_blackburn_portada)
+        )
+        isMedicina -> listOf(
+            ScientistStory("Rosalyn Yalow", "FÍSICA MÉDICA Y ENDOCRINOLOGÍA", "Estados Unidos • 1921–2011", "🩺", Color(0xFFFCDD81), imageRes = R.drawable.rosalyn_yalow_portada),
+            ScientistStory("Flora de Pablo", "BIOLOGÍA CELULAR, ENDOCRINOLOGÍA Y DESARROLLO", "España • 1952–Actualidad", "🩺", Color(0xFFF4B2DE), imageRes = R.drawable.flora_de_pablo_portada),
+            ScientistStory("Cecilia Grierson", "MEDICINA, ENFERMERÍA Y SALUD PÚBLICA", "Argentina • 1859–1934", "🏥", Color(0xFF8CD8DA), imageRes = R.drawable.cecilia_grierson_portada),
+            ScientistStory("Patricia Bath", "OFTALMOLOGÍA", "Estados Unidos • 1942–2019", "👁️", Color(0xFFC9C1FF), imageRes = R.drawable.patricia_bath_portada),
+            ScientistStory("Margaret Sanger", "SALUD REPRODUCTIVA", "Estados Unidos • 1879–1966", "🩺", Color(0xFFF4B2DE), imageRes = R.drawable.margaret_sanger_portada)
         )
         else -> emptyList()
     }
