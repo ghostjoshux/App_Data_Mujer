@@ -91,6 +91,11 @@ class MainActivity : ComponentActivity() {
                                     "Henrietta Swan Leavitt" -> navController.navigate("scientist/henrietta_swan_leavitt")
                                     "Annie Jump Cannon" -> navController.navigate("scientist/annie_jump_cannon")
                                     "Nancy Grace Roman" -> navController.navigate("scientist/nancy_grace_roman")
+                                    "Ada Lovelace" -> navController.navigate("scientist/ada_lovelace")
+                                    "Evelyn Berezin" -> navController.navigate("scientist/evelyn_berezin")
+                                    "Grace Murray Hopper" -> navController.navigate("scientist/grace_murray_hopper")
+                                    "Jude Milhon" -> navController.navigate("scientist/jude_milhon")
+                                    "Lynn Conway" -> navController.navigate("scientist/lynn_conway")
                                 }
                             }
                         )
@@ -162,6 +167,16 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/annie_jump_cannon")
                                 } else if (scientistName.contains("Nancy", ignoreCase = true) || scientistName.contains("Roman", ignoreCase = true)) {
                                     navController.navigate("scientist/nancy_grace_roman")
+                                } else if (scientistName.contains("Ada", ignoreCase = true) || scientistName.contains("Lovelace", ignoreCase = true)) {
+                                    navController.navigate("scientist/ada_lovelace")
+                                } else if (scientistName.contains("Evelyn", ignoreCase = true) || scientistName.contains("Berezin", ignoreCase = true)) {
+                                    navController.navigate("scientist/evelyn_berezin")
+                                } else if (scientistName.contains("Grace", ignoreCase = true) || scientistName.contains("Hopper", ignoreCase = true)) {
+                                    navController.navigate("scientist/grace_murray_hopper")
+                                } else if (scientistName.contains("Jude", ignoreCase = true) || scientistName.contains("Milhon", ignoreCase = true)) {
+                                    navController.navigate("scientist/jude_milhon")
+                                } else if (scientistName.contains("Conway", ignoreCase = true)) {
+                                    navController.navigate("scientist/lynn_conway")
                                 }
                             },
                             onAboutClick = {
@@ -339,6 +354,36 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/nancy_grace_roman") {
                         NancyGraceRomanDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/ada_lovelace") {
+                        AdaLovelaceDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/evelyn_berezin") {
+                        EvelynBerezinDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/grace_murray_hopper") {
+                        GraceMurrayHopperDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/jude_milhon") {
+                        JudeMilhonDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/lynn_conway") {
+                        LynnConwayDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )
