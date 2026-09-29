@@ -64,6 +64,7 @@ fun CategoryDetailScreen(
     val isBiologia = categoryName.equals("Biología", ignoreCase = true) || categoryName.equals("Biologia", ignoreCase = true)
     val isMedicina = categoryName.equals("Medicina", ignoreCase = true)
     val isAstronomia = categoryName.equals("Astronomía", ignoreCase = true) || categoryName.equals("Astronomia", ignoreCase = true)
+    val isComputacion = categoryName.equals("Computación", ignoreCase = true) || categoryName.equals("Computacion", ignoreCase = true)
 
     val scientists = when {
         isMatematicas -> listOf(
@@ -106,6 +107,13 @@ fun CategoryDetailScreen(
             ScientistStory("Henrietta Swan Leavitt", "FOTOMETRÍA ESTELAR", "Estados Unidos • 1868–1921", "⭐", Color(0xFFFCDD81), imageRes = R.drawable.henrietta_swan_leavitt_portada),
             ScientistStory("Annie Jump Cannon", "CLASIFICACIÓN ESPECTRAL ESTELAR", "Estados Unidos • 1863–1941", "🌟", Color(0xFF8CD8DA), imageRes = R.drawable.annie_jump_cannon_portada),
             ScientistStory("Nancy Grace Roman", "ASTRONOMÍA ESPACIAL", "Estados Unidos • 1925–2018", "🛰️", Color(0xFFF4B2DE), imageRes = R.drawable.nancy_grace_roman_portada)
+        )
+        isComputacion -> listOf(
+            ScientistStory("Ada Lovelace", "ALGORITMOS Y COMPUTACIÓN TEÓRICA", "Inglaterra • 1815–1852", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.ada_lovelace_portada),
+            ScientistStory("Evelyn Berezin", "SISTEMAS DIGITALES Y PROCESAMIENTO DE TEXTO", "Estados Unidos • 1925–2018", "⌨️", Color(0xFFC9C1FF), imageRes = R.drawable.evelyn_berezin_portada),
+            ScientistStory("Grace Murray Hopper", "LENGUAJES DE PROGRAMACIÓN Y COMPILADORES", "Estados Unidos • 1906–1992", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.grace_murray_hopper_portada),
+            ScientistStory("Jude Milhon", "CULTURA HACKER, REDES Y DERECHOS DIGITALES", "Estados Unidos • 1939–2003", "🌐", Color(0xFFC9C1FF), imageRes = R.drawable.jude_milhon_portada),
+            ScientistStory("Lynn Conway", "ARQUITECTURA DE COMPUTADORES Y DISEÑO VLSI", "Estados Unidos • 1938–2024", "🔌", Color(0xFFC9C1FF), imageRes = R.drawable.lynn_conway_portada)
         )
         else -> emptyList()
     }
