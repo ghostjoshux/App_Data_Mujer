@@ -86,6 +86,8 @@ class MainActivity : ComponentActivity() {
                                     "Cecilia Grierson" -> navController.navigate("scientist/cecilia_grierson")
                                     "Patricia Bath" -> navController.navigate("scientist/patricia_bath")
                                     "Margaret Sanger" -> navController.navigate("scientist/margaret_sanger")
+                                    "Caroline Herschel" -> navController.navigate("scientist/caroline_herschel")
+                                    "Maria Mitchell" -> navController.navigate("scientist/maria_mitchell")
                                 }
                             }
                         )
@@ -147,6 +149,10 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/patricia_bath")
                                 } else if (scientistName.contains("Margaret", ignoreCase = true) || scientistName.contains("Sanger", ignoreCase = true)) {
                                     navController.navigate("scientist/margaret_sanger")
+                                } else if (scientistName.contains("Caroline", ignoreCase = true) || scientistName.contains("Herschel", ignoreCase = true)) {
+                                    navController.navigate("scientist/caroline_herschel")
+                                } else if (scientistName.contains("Maria", ignoreCase = true) || scientistName.contains("Mitchell", ignoreCase = true)) {
+                                    navController.navigate("scientist/maria_mitchell")
                                 }
                             },
                             onAboutClick = {
@@ -294,6 +300,18 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/margaret_sanger") {
                         MargaretSangerDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/caroline_herschel") {
+                        CarolineHerschelDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/maria_mitchell") {
+                        MariaMitchellDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )

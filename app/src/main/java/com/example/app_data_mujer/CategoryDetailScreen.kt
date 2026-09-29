@@ -63,6 +63,7 @@ fun CategoryDetailScreen(
     val isQuimica = categoryName.equals("Química", ignoreCase = true) || categoryName.equals("Quimica", ignoreCase = true)
     val isBiologia = categoryName.equals("Biología", ignoreCase = true) || categoryName.equals("Biologia", ignoreCase = true)
     val isMedicina = categoryName.equals("Medicina", ignoreCase = true)
+    val isAstronomia = categoryName.equals("Astronomía", ignoreCase = true) || categoryName.equals("Astronomia", ignoreCase = true)
 
     val scientists = when {
         isMatematicas -> listOf(
@@ -98,6 +99,13 @@ fun CategoryDetailScreen(
             ScientistStory("Cecilia Grierson", "MEDICINA, ENFERMERÍA Y SALUD PÚBLICA", "Argentina • 1859–1934", "🏥", Color(0xFF8CD8DA), imageRes = R.drawable.cecilia_grierson_portada),
             ScientistStory("Patricia Bath", "OFTALMOLOGÍA", "Estados Unidos • 1942–2019", "👁️", Color(0xFFC9C1FF), imageRes = R.drawable.patricia_bath_portada),
             ScientistStory("Margaret Sanger", "SALUD REPRODUCTIVA", "Estados Unidos • 1879–1966", "🩺", Color(0xFFF4B2DE), imageRes = R.drawable.margaret_sanger_portada)
+        )
+        isAstronomia -> listOf(
+            ScientistStory("Caroline Herschel", "OBSERVACIÓN Y CATALOGACIÓN ASTRONÓMICA", "Alemania • 1750–1848", "🔭", Color(0xFFC9C1FF), imageRes = R.drawable.caroline_herschel_portada),
+            ScientistStory("Maria Mitchell", "ASTRONOMÍA OBSERVACIONAL", "Estados Unidos • 1818–1889", "🔭", Color(0xFFC9C1FF), imageRes = R.drawable.maria_mitchell_portada),
+            ScientistStory("Henrietta Swan Leavitt", "FOTOMETRÍA ESTELAR", "Estados Unidos • 1868–1921", "⭐", Color(0xFFFCDD81), imageRes = R.drawable.henrietta_swan_leavitt_portada),
+            ScientistStory("Annie Jump Cannon", "CLASIFICACIÓN ESPECTRAL ESTELAR", "Estados Unidos • 1863–1941", "🌟", Color(0xFF8CD8DA), imageRes = R.drawable.annie_jump_cannon_portada),
+            ScientistStory("Nancy Grace Roman", "ASTRONOMÍA ESPACIAL", "Estados Unidos • 1925–2018", "🛰️", Color(0xFFF4B2DE), imageRes = R.drawable.nancy_grace_roman_portada)
         )
         else -> emptyList()
     }
