@@ -88,6 +88,9 @@ class MainActivity : ComponentActivity() {
                                     "Margaret Sanger" -> navController.navigate("scientist/margaret_sanger")
                                     "Caroline Herschel" -> navController.navigate("scientist/caroline_herschel")
                                     "Maria Mitchell" -> navController.navigate("scientist/maria_mitchell")
+                                    "Henrietta Swan Leavitt" -> navController.navigate("scientist/henrietta_swan_leavitt")
+                                    "Annie Jump Cannon" -> navController.navigate("scientist/annie_jump_cannon")
+                                    "Nancy Grace Roman" -> navController.navigate("scientist/nancy_grace_roman")
                                 }
                             }
                         )
@@ -153,6 +156,12 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/caroline_herschel")
                                 } else if (scientistName.contains("Maria", ignoreCase = true) || scientistName.contains("Mitchell", ignoreCase = true)) {
                                     navController.navigate("scientist/maria_mitchell")
+                                } else if (scientistName.contains("Henrietta", ignoreCase = true) || scientistName.contains("Leavitt", ignoreCase = true)) {
+                                    navController.navigate("scientist/henrietta_swan_leavitt")
+                                } else if (scientistName.contains("Annie", ignoreCase = true) || scientistName.contains("Cannon", ignoreCase = true)) {
+                                    navController.navigate("scientist/annie_jump_cannon")
+                                } else if (scientistName.contains("Nancy", ignoreCase = true) || scientistName.contains("Roman", ignoreCase = true)) {
+                                    navController.navigate("scientist/nancy_grace_roman")
                                 }
                             },
                             onAboutClick = {
@@ -312,6 +321,24 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/maria_mitchell") {
                         MariaMitchellDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/henrietta_swan_leavitt") {
+                        HenriettaSwanLeavittDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/annie_jump_cannon") {
+                        AnnieJumpCannonDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/nancy_grace_roman") {
+                        NancyGraceRomanDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )
