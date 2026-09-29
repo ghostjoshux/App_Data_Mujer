@@ -285,6 +285,73 @@ fun PatriciaBiografiaContent(cardBg: Color, primaryColor: Color) {
             }
         }
 
+        // Info Grid (Nacimiento, Lugar, Nacionalidad, Fallecimiento)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.Cake, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Nacimiento", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "4 de noviembre de 1942", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.LocationOn, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Lugar de nacimiento", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "Harlem, NY, EE. UU.", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.Public, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Nacionalidad", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "Estadounidense", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.Event, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Fallecimiento", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "30 de mayo de 2019", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+        }
+
         // Info Grid (Área & Especialidad)
         Row(
             modifier = Modifier.fillMaxWidth(),

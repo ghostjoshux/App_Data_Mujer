@@ -27,11 +27,11 @@ import androidx.compose.ui.unit.sp
 import com.example.app_data_mujer.ui.theme.*
 
 @Composable
-fun RosalynYalowDetailScreen(
+fun MargaretSangerDetailScreen(
     onBack: () -> Unit,
     onFollowExploring: () -> Unit
 ) {
-    val scientistName = "Rosalyn Yalow"
+    val scientistName = "Margaret Sanger"
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
     var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite(scientistName)) }
     val scrollState = rememberScrollState()
@@ -141,7 +141,7 @@ fun RosalynYalowDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.rosalyn_yalow_perfil),
+                        painter = painterResource(id = R.drawable.margaret_sanger_perfil),
                         contentDescription = scientistName,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -157,7 +157,7 @@ fun RosalynYalowDetailScreen(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text(
-                            text = "\"Medir lo diminuto puede transformar el diagnóstico.\"",
+                            text = "\"El acceso a información sanitaria cambia decisiones y destinos.\"",
                             fontSize = 12.sp,
                             fontStyle = FontStyle.Italic,
                             color = Color.DarkGray,
@@ -165,7 +165,7 @@ fun RosalynYalowDetailScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "— ROSALYN YALOW",
+                            text = "— MARGARET SANGER",
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             color = primaryPurple
@@ -187,7 +187,7 @@ fun RosalynYalowDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Rosalyn Yalow",
+                        text = "Margaret Sanger",
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
                         color = DataMujerDark
@@ -214,7 +214,7 @@ fun RosalynYalowDetailScreen(
                 }
 
                 Text(
-                    text = "Física médica y endocrinología",
+                    text = "Enfermería y salud reproductiva",
                     fontSize = 14.sp,
                     color = Color.Gray,
                     modifier = Modifier.padding(top = 2.dp)
@@ -239,9 +239,9 @@ fun RosalynYalowDetailScreen(
 
             // Tab Content with generous spacing
             when (selectedTab) {
-                0 -> RosalynBiografiaContent(cardBg, primaryPurple)
-                1 -> RosalynAportesContent(cardBg, primaryPurple)
-                2 -> RosalynCuriosidadesContent(cardBg, primaryPurple)
+                0 -> MargaretBiografiaContent(cardBg, primaryPurple)
+                1 -> MargaretAportesContent(cardBg, primaryPurple)
+                2 -> MargaretCuriosidadesContent(cardBg, primaryPurple)
             }
 
             Spacer(modifier = Modifier.height(48.dp))
@@ -250,7 +250,7 @@ fun RosalynYalowDetailScreen(
 }
 
 @Composable
-fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
+fun MargaretBiografiaContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -277,7 +277,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Física médica que desarrolló con Solomon Berson el radioinmunoensayo, una técnica extremadamente sensible para medir sustancias en sangre.",
+                    text = "Enfermera y activista que impulsó el acceso a anticonceptivos y fundó organizaciones precursoras de Planned Parenthood.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -300,7 +300,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.Cake, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Nacimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "19 de julio de 1921", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "14 de septiembre de 1879", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
 
@@ -314,7 +314,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.LocationOn, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Lugar de nacimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Nueva York, EE. UU.", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Corning, NY, EE. UU.", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
         }
@@ -347,7 +347,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.Event, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Fallecimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "30 de mayo de 2011", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "6 de septiembre de 1966", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
         }
@@ -364,10 +364,10 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Icon(Icons.Default.Public, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Icon(Icons.Default.MedicalServices, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = "Nacionalidad", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Estadounidense", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Área", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "Medicina", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
 
@@ -381,7 +381,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Especialidad", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Física médica y endocrinología", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark, maxLines = 3)
+                    Text(text = "Enfermería y salud reproductiva", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark, maxLines = 2)
                 }
             }
         }
@@ -408,13 +408,13 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
-                TimelineItem(year = "1945", text = "Obtuvo el doctorado en física por la Universidad de Illinois.")
+                TimelineItem(year = "1914", text = "Inició la publicación de la revista The Woman Rebel.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "1950", text = "Inició su histórica colaboración científica con Solomon Berson.")
+                TimelineItem(year = "1916", text = "Abrió la primera clínica de control natal en Brooklyn.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "1959", text = "Publicaron la técnica del radioinmunoensayo aplicada a la insulina.")
+                TimelineItem(year = "1921", text = "Fundó la American Birth Control League.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "1977", text = "Recibió el Premio Nobel de Fisiología o Medicina.")
+                TimelineItem(year = "1960", text = "Se aprobó la primera píldora anticonceptiva en EE. UU.")
             }
         }
 
@@ -432,7 +432,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
             ) {
                 Text(text = "❝", fontSize = 36.sp, color = primaryColor, fontWeight = FontWeight.Bold)
                 Text(
-                    text = "Su trabajo abrió nuevas formas de diagnosticar y entender el cuerpo humano.",
+                    text = "Creía que las personas deben tener información para decidir sobre sus propias vidas.",
                     fontSize = 13.sp,
                     fontStyle = FontStyle.Italic,
                     color = Color.DarkGray,
@@ -444,7 +444,7 @@ fun RosalynBiografiaContent(cardBg: Color, primaryColor: Color) {
 }
 
 @Composable
-fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
+fun MargaretAportesContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -464,7 +464,7 @@ fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
             }
         }
 
-        // Radioimmunoassay Card
+        // Contraception Card
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -472,10 +472,10 @@ fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Desarrollo del radioinmunoensayo (RIA)", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Promovió clínicas, educación y acceso legal", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Técnica revolucionaria para medir hormonas y otras moléculas biológicas en concentraciones extremadamente bajas en sangre.",
+                    text = "Abrió las primeras clínicas e impulsó activamente el acceso legal y la educación pública a métodos anticonceptivos seguros.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -495,9 +495,9 @@ fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Metabolismo de la insulina", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                    Text(text = "Investigación anticonceptiva", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(text = "Aportó conocimientos decisivos sobre la diabetes y el comportamiento de la insulina.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                    Text(text = "Financió e impulsó la investigación médica para crear la píldora anticonceptiva oral.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
                 }
             }
 
@@ -508,9 +508,9 @@ fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Aplicación de radioisótopos", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                    Text(text = "Planned Parenthood", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(text = "Pionera en el uso de radioisótopos para el diagnóstico médico no invasivo.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                    Text(text = "Contribuyó a la creación y expansión global de Planned Parenthood.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
                 }
             }
         }
@@ -526,7 +526,7 @@ fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
                 Text(text = "Impacto en el mundo", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "El radioinmunoensayo revolucionó la endocrinología, bancos de sangre, detección de enfermedades y desarrollo de fármacos.",
+                    text = "Contribuyó a convertir la anticoncepción en un asunto de salud pública y autonomía reproductiva, influyendo en políticas, investigación y acceso a la atención en todo el mundo.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -537,7 +537,7 @@ fun RosalynAportesContent(cardBg: Color, primaryColor: Color) {
 }
 
 @Composable
-fun RosalynCuriosidadesContent(cardBg: Color, primaryColor: Color) {
+fun MargaretCuriosidadesContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -564,10 +564,10 @@ fun RosalynCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Segunda mujer Nobel de Medicina", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Enfermera en barrios pobres", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Fue la segunda mujer en ganar un Premio Nobel de Fisiología o Medicina en 1977.",
+                    text = "Su trabajo como enfermera visitadora en el East Side de Nueva York le hizo ver el impacto de los embarazos no planificados en las mujeres vulnerables.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -582,10 +582,10 @@ fun RosalynCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "No patentaron la técnica", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Enfrentó arrestos", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Rechazó patentar el radioinmunoensayo para que cualquier laboratorio del mundo pudiera usarlo libremente para salvar vidas.",
+                    text = "Fue arrestada en múltiples ocasiones por distribuir información y abrir la primera clínica de control de natalidad desafiando leyes de censura.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -600,10 +600,10 @@ fun RosalynCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Equipos modestos en hospital de veteranos", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Revisión crítica histórica", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Comenzó su histórica investigación trabajando con presupuestos reducidos en un laboratorio modesto de un hospital de veteranos.",
+                    text = "Su figura sigue siendo objeto de análisis y revisión crítica en la historia de la medicina y los derechos reproductivos.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -618,10 +618,10 @@ fun RosalynCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Superó prejuicios", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Leyes de censura", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Enfrentó fuertes prejuicios por ser mujer en el campo de la física y medicina, convirtiéndose en un ícono de superación.",
+                    text = "Desafió la famosa Ley Comstock de EE. UU. que prohibía la circulación de material anticonceptivo clasificándolo de 'obsceno'.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp

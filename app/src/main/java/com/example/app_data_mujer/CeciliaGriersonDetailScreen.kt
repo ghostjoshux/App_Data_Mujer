@@ -219,31 +219,6 @@ fun CeciliaGriersonDetailScreen(
                     color = Color.Gray,
                     modifier = Modifier.padding(top = 2.dp)
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Info row (Birth, Location, Nationality, Death)
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(14.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        InfoItem(icon = Icons.Default.CalendarToday, label = "22 de noviembre\nde 1859")
-                        VerticalDivider(modifier = Modifier.height(36.dp), color = Color.LightGray.copy(alpha = 0.5f))
-                        InfoItem(icon = Icons.Default.LocationOn, label = "Buenos Aires,\nArgentina")
-                        VerticalDivider(modifier = Modifier.height(36.dp), color = Color.LightGray.copy(alpha = 0.5f))
-                        InfoItem(icon = Icons.Default.Public, label = "Argentina")
-                        VerticalDivider(modifier = Modifier.height(36.dp), color = Color.LightGray.copy(alpha = 0.5f))
-                        InfoItem(icon = Icons.Default.Event, label = "10 de abril\nde 1934")
-                    }
-                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -307,6 +282,73 @@ fun CeciliaBiografiaContent(cardBg: Color, primaryColor: Color) {
                     color = Color.DarkGray,
                     lineHeight = 20.sp
                 )
+            }
+        }
+
+        // Info Grid (Nacimiento, Lugar, Nacionalidad, Fallecimiento)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.Cake, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Nacimiento", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "22 de noviembre de 1859", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.LocationOn, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Lugar de nacimiento", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "Buenos Aires, Argentina", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.Public, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Nacionalidad", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "Argentina", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
+            }
+
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = cardBg),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(Icons.Default.Event, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Fallecimiento", fontSize = 12.sp, color = Color.Gray)
+                    Text(text = "10 de abril de 1934", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                }
             }
         }
 
