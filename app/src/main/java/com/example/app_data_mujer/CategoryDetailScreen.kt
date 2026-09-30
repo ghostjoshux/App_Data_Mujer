@@ -270,14 +270,14 @@ fun CategoryDetailScreen(
                                 ) {
                                     Surface(
                                         shape = RoundedCornerShape(8.dp),
-                                        color = Color(0xFFFFF6D6),
+                                        color = screenBgColor,
                                         modifier = Modifier.weight(1f).padding(end = 4.dp)
                                     ) {
                                         Text(
                                             text = scientist.tag,
                                             fontSize = 9.sp,
                                             fontWeight = FontWeight.Bold,
-                                            color = Color(0xFF8B6508),
+                                            color = DataMujerDark,
                                             maxLines = 1,
                                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
                                         )
