@@ -97,6 +97,10 @@ class MainActivity : ComponentActivity() {
                                     "Jude Milhon" -> navController.navigate("scientist/jude_milhon")
                                     "Lynn Conway" -> navController.navigate("scientist/lynn_conway")
                                     "Hedy Lamarr" -> navController.navigate("scientist/hedy_lamarr")
+                                    "Emily Warren Roebling" -> navController.navigate("scientist/emily_warren_roebling")
+                                    "Edith Clarke" -> navController.navigate("scientist/edith_clarke")
+                                    "Elisa Leonida Zamfirescu" -> navController.navigate("scientist/elisa_leonida_zamfirescu")
+                                    "Beatrice Shilling" -> navController.navigate("scientist/beatrice_shilling")
                                 }
                             }
                         )
@@ -180,6 +184,14 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("scientist/lynn_conway")
                                 } else if (scientistName.contains("Hedy", ignoreCase = true) || scientistName.contains("Lamarr", ignoreCase = true)) {
                                     navController.navigate("scientist/hedy_lamarr")
+                                } else if (scientistName.contains("Emily", ignoreCase = true) || scientistName.contains("Roebling", ignoreCase = true)) {
+                                    navController.navigate("scientist/emily_warren_roebling")
+                                } else if (scientistName.contains("Edith", ignoreCase = true) || scientistName.contains("Clarke", ignoreCase = true)) {
+                                    navController.navigate("scientist/edith_clarke")
+                                } else if (scientistName.contains("Elisa", ignoreCase = true) || scientistName.contains("Zamfirescu", ignoreCase = true)) {
+                                    navController.navigate("scientist/elisa_leonida_zamfirescu")
+                                } else if (scientistName.contains("Beatrice", ignoreCase = true) || scientistName.contains("Shilling", ignoreCase = true)) {
+                                    navController.navigate("scientist/beatrice_shilling")
                                 }
                             },
                             onAboutClick = {
@@ -393,6 +405,30 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("scientist/hedy_lamarr") {
                         HedyLamarrDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/emily_warren_roebling") {
+                        EmilyWarrenRoeblingDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/edith_clarke") {
+                        EdithClarkeDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/elisa_leonida_zamfirescu") {
+                        ElisaLeonidaZamfirescuDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onFollowExploring = { navController.popBackStack() }
+                        )
+                    }
+                    composable("scientist/beatrice_shilling") {
+                        BeatriceShillingDetailScreen(
                             onBack = { navController.popBackStack() },
                             onFollowExploring = { navController.popBackStack() }
                         )

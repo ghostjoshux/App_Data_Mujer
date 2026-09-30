@@ -190,7 +190,10 @@ fun EmilyWarrenRoeblingDetailScreen(
                         text = "Emily Warren Roebling",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = DataMujerDark
+                        color = DataMujerDark,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 8.dp)
                     )
 
                     Surface(

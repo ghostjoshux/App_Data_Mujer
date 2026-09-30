@@ -27,11 +27,11 @@ import androidx.compose.ui.unit.sp
 import com.example.app_data_mujer.ui.theme.*
 
 @Composable
-fun HenriettaSwanLeavittDetailScreen(
+fun EdithClarkeDetailScreen(
     onBack: () -> Unit,
     onFollowExploring: () -> Unit
 ) {
-    val scientistName = "Henrietta Swan Leavitt"
+    val scientistName = "Edith Clarke"
     var selectedTab by remember { mutableStateOf(0) } // 0: Biografía, 1: Aportes, 2: Curiosidades
     var isFavorite by remember { mutableStateOf(FavoritesManager.isFavorite(scientistName)) }
     val scrollState = rememberScrollState()
@@ -141,7 +141,7 @@ fun HenriettaSwanLeavittDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.henrietta_swan_leavitt_perfil),
+                        painter = painterResource(id = R.drawable.edith_clarke_perfil),
                         contentDescription = scientistName,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -157,7 +157,7 @@ fun HenriettaSwanLeavittDetailScreen(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text(
-                            text = "\"Medir el ritmo de una estrella puede medir el universo.\"",
+                            text = "\"Hacer visible un cálculo puede hacer posible una red completa.\"",
                             fontSize = 12.sp,
                             fontStyle = FontStyle.Italic,
                             color = Color.DarkGray,
@@ -165,7 +165,7 @@ fun HenriettaSwanLeavittDetailScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "— HENRIETTA SWAN LEAVITT",
+                            text = "— EDITH CLARKE",
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             color = primaryPurple
@@ -187,13 +187,10 @@ fun HenriettaSwanLeavittDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Henrietta Swan Leavitt",
-                        fontSize = 24.sp,
+                        text = "Edith Clarke",
+                        fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        color = DataMujerDark,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 8.dp)
+                        color = DataMujerDark
                     )
 
                     Surface(
@@ -205,9 +202,9 @@ fun HenriettaSwanLeavittDetailScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            Text(text = "⭐", fontSize = 12.sp)
+                            Text(text = "⚡", fontSize = 12.sp)
                             Text(
-                                text = "ASTRONOMÍA",
+                                text = "INGENIERÍA",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = primaryPurple
@@ -217,7 +214,7 @@ fun HenriettaSwanLeavittDetailScreen(
                 }
 
                 Text(
-                    text = "Fotometría estelar",
+                    text = "Ingeniería eléctrica y sistemas de potencia",
                     fontSize = 14.sp,
                     color = Color.Gray,
                     modifier = Modifier.padding(top = 2.dp)
@@ -242,9 +239,9 @@ fun HenriettaSwanLeavittDetailScreen(
 
             // Tab Content with generous spacing
             when (selectedTab) {
-                0 -> HenriettaBiografiaContent(cardBg, primaryPurple)
-                1 -> HenriettaAportesContent(cardBg, primaryPurple)
-                2 -> HenriettaCuriosidadesContent(cardBg, primaryPurple)
+                0 -> EdithBiografiaContent(cardBg, primaryPurple)
+                1 -> EdithAportesContent(cardBg, primaryPurple)
+                2 -> EdithCuriosidadesContent(cardBg, primaryPurple)
             }
 
             Spacer(modifier = Modifier.height(48.dp))
@@ -253,7 +250,7 @@ fun HenriettaSwanLeavittDetailScreen(
 }
 
 @Composable
-fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
+fun EdithBiografiaContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -280,7 +277,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Astrónoma que descubrió la relación entre el período y la luminosidad de estrellas variables Cefeidas.",
+                    text = "Ingeniera eléctrica que creó herramientas para analizar redes de potencia y fue la primera profesora de ingeniería eléctrica en Estados Unidos.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -303,7 +300,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.Cake, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Nacimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "4 de julio de 1868", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "10 de febrero de 1883", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
 
@@ -317,7 +314,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.LocationOn, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Lugar de nacimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Lancaster, MA, EE. UU.", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Howard Co., MD, EE. UU.", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
         }
@@ -350,7 +347,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.Default.Event, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Fallecimiento", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "12 de diciembre de 1921", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "29 de octubre de 1959", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
         }
@@ -367,10 +364,10 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Icon(Icons.Default.Explore, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
+                    Icon(Icons.Default.Build, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Área", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Astronomía", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Ingeniería", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
                 }
             }
 
@@ -384,7 +381,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                     Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = primaryColor, modifier = Modifier.size(24.dp))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Especialidad", fontSize = 12.sp, color = Color.Gray)
-                    Text(text = "Fotometría estelar", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
+                    Text(text = "Ingeniería eléctrica y potencia", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DataMujerDark, maxLines = 2)
                 }
             }
         }
@@ -411,13 +408,13 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
-                TimelineItem(year = "1892", text = "Se graduó en Radcliffe College.")
+                TimelineItem(year = "1919", text = "Obtuvo una maestría en ingeniería eléctrica en MIT.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "1902", text = "Ingresó al Harvard College Observatory como 'computadora humana'.")
+                TimelineItem(year = "1921", text = "Patentó la Calculadora Clarke para resolver ecuaciones eléctricas.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "1908", text = "Publicó la relación preliminar período-luminosidad en Cefeidas.")
+                TimelineItem(year = "1922", text = "Fue la primera ingeniera profesional contratada en General Electric.")
                 Spacer(modifier = Modifier.height(12.dp))
-                TimelineItem(year = "1912", text = "Estableció formalmente la Ley de Leavitt para medir distancias universales.")
+                TimelineItem(year = "1947", text = "Se incorporó como profesora a la Universidad de Texas.")
             }
         }
 
@@ -435,7 +432,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
             ) {
                 Text(text = "❝", fontSize = 36.sp, color = primaryColor, fontWeight = FontWeight.Bold)
                 Text(
-                    text = "Su trabajo mostró que la observación cuidadosa puede revelar la verdadera escala del universo.",
+                    text = "Su trabajo demostró que los cálculos pueden iluminar un mundo más conectado.",
                     fontSize = 13.sp,
                     fontStyle = FontStyle.Italic,
                     color = Color.DarkGray,
@@ -447,7 +444,7 @@ fun HenriettaBiografiaContent(cardBg: Color, primaryColor: Color) {
 }
 
 @Composable
-fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
+fun EdithAportesContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -467,7 +464,7 @@ fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
             }
         }
 
-        // Leavitt Law Card
+        // Clarke Calculator Card
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -475,10 +472,10 @@ fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Descubrió la Ley de Leavitt", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Inventó la Calculadora Clarke", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Descubrió la relación directa entre el período de pulsación de las estrellas Cefeidas y su luminosidad, permitiendo calcular distancias cósmicas.",
+                    text = "Aceleraba la solución gráfica de ecuaciones de líneas eléctricas reduciendo drásticamente el tiempo de cálculo de transmisión.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -498,9 +495,9 @@ fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Catalogó más de 2.400 estrellas", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                    Text(text = "Componentes simétricas", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(text = "Identificó y catalogó exhaustivamente miles de estrellas variables.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                    Text(text = "Desarrolló métodos para el análisis de fallas en sistemas de potencia.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
                 }
             }
 
@@ -511,9 +508,9 @@ fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Fotometría estelar", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                    Text(text = "Texto sobre circuitos", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(text = "Desarrolló el estándar de magnitudes fotográficas adoptado internacionalmente.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
+                    Text(text = "Escribió un libro de texto fundamental sobre ingeniería de potencia.", fontSize = 12.sp, color = Color.Gray, lineHeight = 16.sp)
                 }
             }
         }
@@ -526,10 +523,10 @@ fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Impacto en el mundo", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Importancia en el mundo", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Su ley hizo posible medir galaxias lejanas y ayudó a Edwin Hubble a demostrar la gran escala y expansión del universo.",
+                    text = "Sus técnicas formaron la base del análisis moderno de sistemas eléctricos y contribuyeron a redes de potencia más seguras y eficientes.",
                     fontSize = 14.sp,
                     color = Color.DarkGray,
                     lineHeight = 20.sp
@@ -540,7 +537,7 @@ fun HenriettaAportesContent(cardBg: Color, primaryColor: Color) {
 }
 
 @Composable
-fun HenriettaCuriosidadesContent(cardBg: Color, primaryColor: Color) {
+fun EdithCuriosidadesContent(cardBg: Color, primaryColor: Color) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -567,10 +564,10 @@ fun HenriettaCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Análisis manual de placas fotográficas", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Financió sus estudios con su herencia", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Descubrió patrones cósmicos examinando meticulosamente miles de placas fotográficas de vidrio a simple vista.",
+                    text = "Quedó huérfana de ambos padres a los 12 años y usó su parte de herencia al cumplir 18 para pagar sus estudios universitarios en matemáticas.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -585,10 +582,10 @@ fun HenriettaCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Pérdida de la audición", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Ponencia ante el AIEE", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Padeció una enfermedad grave tras graduarse que le provocó sordera casi total, concentrando su atención en el análisis visual.",
+                    text = "Fue la primera mujer en presentar una ponencia académica ante el American Institute of Electrical Engineers.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -603,10 +600,10 @@ fun HenriettaCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Trabajo como 'computadora humana'", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Obstáculos en General Electric", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Fue contratada como 'computadora' en Harvard ganando apenas 30 centavos la hora sin acceso inicial a usar los telescopios.",
+                    text = "Al inicio, GE no le ofreció un puesto oficial de ingeniera sino de 'computadora humana', hasta que demostró su brillantez indiscutible.",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
@@ -621,10 +618,10 @@ fun HenriettaCuriosidadesContent(cardBg: Color, primaryColor: Color) {
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Candidata póstuma al Premio Nobel", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
+                Text(text = "Primera mujer Fellow del AIEE", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "El matemático Gösta Mittag-Leffler intentó nominarla al Premio Nobel en 1924, desconociendo que había fallecido cuatro años antes.",
+                    text = "En 1948 se convirtió en la primera mujer condecorada como Fellow del AIEE (actual IEEE).",
                     fontSize = 13.sp,
                     color = Color.DarkGray,
                     lineHeight = 18.sp
