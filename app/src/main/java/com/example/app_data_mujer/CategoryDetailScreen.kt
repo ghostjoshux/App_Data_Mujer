@@ -65,6 +65,7 @@ fun CategoryDetailScreen(
     val isMedicina = categoryName.equals("Medicina", ignoreCase = true)
     val isAstronomia = categoryName.equals("Astronomía", ignoreCase = true) || categoryName.equals("Astronomia", ignoreCase = true)
     val isComputacion = categoryName.equals("Computación", ignoreCase = true) || categoryName.equals("Computacion", ignoreCase = true)
+    val isIngenieria = categoryName.equals("Ingeniería", ignoreCase = true) || categoryName.equals("Ingenieria", ignoreCase = true)
 
     val scientists = when {
         isMatematicas -> listOf(
@@ -114,6 +115,13 @@ fun CategoryDetailScreen(
             ScientistStory("Grace Murray Hopper", "LENGUAJES DE PROGRAMACIÓN Y COMPILADORES", "Estados Unidos • 1906–1992", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.grace_murray_hopper_portada),
             ScientistStory("Jude Milhon", "CULTURA HACKER, REDES Y DERECHOS DIGITALES", "Estados Unidos • 1939–2003", "🌐", Color(0xFFC9C1FF), imageRes = R.drawable.jude_milhon_portada),
             ScientistStory("Lynn Conway", "ARQUITECTURA DE COMPUTADORES Y DISEÑO VLSI", "Estados Unidos • 1938–2024", "🔌", Color(0xFFC9C1FF), imageRes = R.drawable.lynn_conway_portada)
+        )
+        isIngenieria -> listOf(
+            ScientistStory("Hedy Lamarr", "COMUNICACIONES INALÁMBRICAS", "Austria-Hungría • 1914–2000", "📻", Color(0xFFFCDD81), imageRes = R.drawable.hedy_lamarr_portadas),
+            ScientistStory("Emily Warren Roebling", "GESTIÓN Y CONSTRUCCIÓN CIVIL", "Estados Unidos • 1843–1903", "🌉", Color(0xFFFCDD81), imageRes = R.drawable.emily_warren_roebling_portadas),
+            ScientistStory("Edith Clarke", "INGENIERÍA ELÉCTRICA Y SISTEMAS DE POTENCIA", "Estados Unidos • 1883–1959", "⚡", Color(0xFFFCDD81), imageRes = R.drawable.edith_clarkeedith_clarke_portadas),
+            ScientistStory("Elisa Leonida Zamfirescu", "INGENIERÍA QUÍMICA Y GEOLOGÍA", "Rumanía • 1887–1973", "⚗️", Color(0xFFFCDD81), imageRes = R.drawable.elisa_leonida_zamfirescu_portadas),
+            ScientistStory("Beatrice Shilling", "INGENIERÍA AERONÁUTICA Y MECÁNICA", "Inglaterra • 1909–1990", "✈️", Color(0xFFFCDD81), imageRes = R.drawable.beatrice_shilling_portadas)
         )
         else -> emptyList()
     }
