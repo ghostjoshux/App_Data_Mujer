@@ -49,6 +49,29 @@ data class CategoryItem(
     val textColor: Color = Color.Black
 )
 
+fun getCategoryForScientist(name: String): String {
+    val n = name.lowercase()
+    return when {
+        // Matemáticas
+        n.contains("sophie") || n.contains("kovalevskaya") || n.contains("noether") || n.contains("mirzakhani") || n.contains("chang") -> "Matemáticas"
+        // Física
+        n.contains("meitner") || n.contains("tsingou") || n.contains("strickland") || n.contains("czerski") -> "Física"
+        // Química
+        n.contains("kwolek") || n.contains("lavoisier") || n.contains("joliot") || n.contains("curie") || n.contains("franklin") -> "Química"
+        // Biología
+        n.contains("salas") || n.contains("mcclintock") || n.contains("margulis") || n.contains("stevens") || n.contains("blackburn") -> "Biología"
+        // Medicina
+        n.contains("yalow") || n.contains("pablo") || n.contains("grierson") || n.contains("bath") || n.contains("sanger") -> "Medicina"
+        // Astronomía
+        n.contains("herschel") || n.contains("mitchell") || n.contains("leavitt") || n.contains("cannon") || n.contains("roman") -> "Astronomía"
+        // Computación
+        n.contains("lovelace") || n.contains("berezin") || n.contains("hopper") || n.contains("milhon") || n.contains("conway") -> "Computación"
+        // Ingeniería
+        n.contains("lamarr") || n.contains("roebling") || n.contains("clarke") || n.contains("zamfirescu") || n.contains("shilling") -> "Ingeniería"
+        else -> "Ciencia"
+    }
+}
+
 @Composable
 fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick: () -> Unit, onScientistClick: (String) -> Unit) {
     var selectedTab by remember { mutableStateOf("explorar") }
@@ -289,7 +312,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                                                 color = DataMujerDark
                                             )
                                             Text(
-                                                text = "Matemáticas",
+                                                text = getCategoryForScientist(scientistName),
                                                 fontSize = 12.sp,
                                                 color = Color.Gray
                                             )
