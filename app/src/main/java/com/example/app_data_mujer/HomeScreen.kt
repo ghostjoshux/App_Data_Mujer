@@ -56,7 +56,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
 
     val categories = listOf(
         CategoryItem("Matemáticas", "5 historias", "🧮", Color(0xFFFCDD81)),
-        CategoryItem("Física", "5 historias", "⚛️", Color(0xFF8CD8DA)),
+        CategoryItem("Física", "4 historias", "⚛️", Color(0xFF8CD8DA)),
         CategoryItem("Química", "5 historias", "🧪", Color(0xFFF4B2DE)),
         CategoryItem("Biología", "5 historias", "🔬", Color(0xFFC9C1FF)),
         CategoryItem("Medicina", "5 historias", "🩺", Color(0xFFF4B2DE)),

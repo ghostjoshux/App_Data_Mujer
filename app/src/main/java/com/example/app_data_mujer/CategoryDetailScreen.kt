@@ -46,16 +46,16 @@ fun CategoryDetailScreen(
     onScientistClick: (String) -> Unit,
     onAboutClick: () -> Unit
 ) {
-    val (emoji, headerColor) = when (categoryName.lowercase()) {
-        "matemáticas", "matematicas" -> "🧮" to Color(0xFFFCDD81)
-        "física", "fisica" -> "⚛️" to Color(0xFF8CD8DA)
-        "química", "quimica" -> "🧪" to Color(0xFFF4B2DE)
-        "biología", "biologia" -> "🔬" to Color(0xFFC9C1FF)
-        "medicina" -> "🩺" to Color(0xFFF4B2DE)
-        "astronomía", "astronomia" -> "☄️" to DataMujerDark
-        "computación", "computacion" -> "👩‍💻" to Color(0xFFC9C1FF)
-        "ingeniería", "ingenieria" -> "⚙️" to Color(0xFF8CD8DA)
-        else -> "📚" to DataMujerTeal
+    val (emoji, headerColor, screenBgColor) = when (categoryName.lowercase()) {
+        "matemáticas", "matematicas" -> Triple("🧮", Color(0xFFFCDD81), Color(0xFFFDE79D))
+        "física", "fisica" -> Triple("⚛️", Color(0xFF8CD8DA), Color(0xFFB1EBEB))
+        "química", "quimica" -> Triple("🧪", Color(0xFFF4B2DE), Color(0xFFF8CFF0))
+        "biología", "biologia" -> Triple("🔬", Color(0xFFC9C1FF), Color(0xFFDCD6FF))
+        "medicina" -> Triple("🩺", Color(0xFFF4B2DE), Color(0xFFF8CFF0))
+        "astronomía", "astronomia" -> Triple("☄️", DataMujerDark, Color(0xFFD6DBF8))
+        "computación", "computacion" -> Triple("👩‍💻", Color(0xFFC9C1FF), Color(0xFFDCD6FF))
+        "ingeniería", "ingenieria" -> Triple("⚙️", Color(0xFF8CD8DA), Color(0xFFB1EBEB))
+        else -> Triple("📚", DataMujerTeal, Color(0xFFEDF7F9))
     }
 
     val isMatematicas = categoryName.equals("Matemáticas", ignoreCase = true) || categoryName.equals("Matematicas", ignoreCase = true)
@@ -127,7 +127,7 @@ fun CategoryDetailScreen(
     }
 
     Scaffold(
-        containerColor = Color(0xFFEDF7F9),
+        containerColor = screenBgColor,
         topBar = {
             Row(
                 modifier = Modifier
