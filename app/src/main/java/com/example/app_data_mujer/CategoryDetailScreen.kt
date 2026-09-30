@@ -70,7 +70,7 @@ fun CategoryDetailScreen(
     val scientists = when {
         isMatematicas -> listOf(
             ScientistStory("Sophie Germain", "TEORÍA DE NÚMEROS Y ELASTICIDAD", "Francia • 1776–1831", "🧮", Color(0xFFFCDD81), imageRes = R.drawable.sophie_germain),
-            ScientistStory("Sofía Kovalevskaya", "ECUACIONES DIFERENCIALES Y MECÁNICA", "Imperio ruso • 1850–1891", "⚛️", Color(0xFF8CD8DA), imageRes = R.drawable.sofia_k),
+            ScientistStory("Sofía Kovalevskaya", "ECUACIONES Y MECÁNICA", "Imperio ruso • 1850–1891", "⚛️", Color(0xFF8CD8DA), imageRes = R.drawable.sofia_k),
             ScientistStory("Emmy Noether", "ÁLGEBRA ABSTRACTA", "Alemania • 1882–1935", "📐", Color(0xFFC9C1FF), imageRes = R.drawable.emmy_noether),
             ScientistStory("Maryam Mirzakhani", "GEOMETRÍA", "Irán • 1977–2017", "📏", Color(0xFFF4B2DE), imageRes = R.drawable.maryam_m_portada),
             ScientistStory("Sun-Yung Alice Chang", "ANÁLISIS GEOMÉTRICO", "China • 1948–Actualidad", "📊", Color(0xFFFCDD81), imageRes = R.drawable.sung_yung_portada)
@@ -83,45 +83,45 @@ fun CategoryDetailScreen(
         )
         isQuimica -> listOf(
             ScientistStory("Stephanie Kwolek", "QUÍMICA DE POLÍMEROS", "Estados Unidos • 1923–2014", "🧪", Color(0xFFF4B2DE), imageRes = R.drawable.stephanie_kwolek_portada),
-            ScientistStory("Marie-Anne Pierrette Paulze-Lavoisier", "DOCUMENTACIÓN, TRADUCCIÓN E ILUSTRACIÓN CIENTÍFICA", "Francia • 1758–1836", "🧪", Color(0xFF8CD8DA), imageRes = R.drawable.marie_anne_portada),
-            ScientistStory("Irène Joliot-Curie", "RADIOQUÍMICA Y FÍSICA NUCLEAR", "Francia • 1897–1956", "⚗️", Color(0xFFC9C1FF), imageRes = R.drawable.irene_portada),
-            ScientistStory("Marie Curie", "RADIOACTIVIDAD Y QUÍMICA NUCLEAR", "Polonia • 1867–1934", "⚛️", Color(0xFFFCDD81), imageRes = R.drawable.marie_curie_portada),
-            ScientistStory("Rosalind Franklin", "CRISTALOGRAFÍA DE RAYOS X", "Inglaterra • 1920–1958", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.rosalind_franklin_portada)
+            ScientistStory("Marie-Anne Pierrette Paulze-Lavoisier", "DOCUMENTACIÓN CIENTÍFICA", "Francia • 1758–1836", "🧪", Color(0xFF8CD8DA), imageRes = R.drawable.marie_anne_portada),
+            ScientistStory("Irène Joliot-Curie", "RADIOQUÍMICA", "Francia • 1897–1956", "⚗️", Color(0xFFC9C1FF), imageRes = R.drawable.irene_portada),
+            ScientistStory("Marie Curie", "RADIOACTIVIDAD", "Polonia • 1867–1934", "⚛️", Color(0xFFFCDD81), imageRes = R.drawable.marie_curie_portada),
+            ScientistStory("Rosalind Franklin", "CRISTALOGRAFÍA", "Inglaterra • 1920–1958", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.rosalind_franklin_portada)
         )
         isBiologia -> listOf(
-            ScientistStory("Margarita Salas", "BIOQUÍMICA Y BIOLOGÍA MOLECULAR", "España • 1938–2019", "🔬", Color(0xFFC9C1FF), imageRes = R.drawable.margarita_salas_portada),
+            ScientistStory("Margarita Salas", "BIOQUÍMICA MOLECULAR", "España • 1938–2019", "🔬", Color(0xFFC9C1FF), imageRes = R.drawable.margarita_salas_portada),
             ScientistStory("Barbara McClintock", "CITOGENÉTICA", "Estados Unidos • 1902–1992", "🌽", Color(0xFFFCDD81), imageRes = R.drawable.barbara_mcclintock_portada),
-            ScientistStory("Lynn Margulis", "BIOLOGÍA EVOLUTIVA Y MICROBIOLOGÍA", "Estados Unidos • 1938–2011", "🦠", Color(0xFF8CD8DA), imageRes = R.drawable.lynn_margulis_portada),
+            ScientistStory("Lynn Margulis", "BIOLOGÍA EVOLUTIVA", "Estados Unidos • 1938–2011", "🦠", Color(0xFF8CD8DA), imageRes = R.drawable.lynn_margulis_portada),
             ScientistStory("Nettie Stevens", "GENÉTICA Y CITOLOGÍA", "Estados Unidos • 1861–1912", "🧬", Color(0xFFF4B2DE), imageRes = R.drawable.nettie_stevens_portada),
             ScientistStory("Elizabeth Blackburn", "BIOLOGÍA MOLECULAR", "Australiana • 1948–Actualidad", "🔬", Color(0xFFC9C1FF), imageRes = R.drawable.elizabeth_blackburn_portada)
         )
         isMedicina -> listOf(
-            ScientistStory("Rosalyn Yalow", "FÍSICA MÉDICA Y ENDOCRINOLOGÍA", "Estados Unidos • 1921–2011", "🩺", Color(0xFFFCDD81), imageRes = R.drawable.rosalyn_yalow_portada),
-            ScientistStory("Flora de Pablo", "BIOLOGÍA CELULAR, ENDOCRINOLOGÍA Y DESARROLLO", "España • 1952–Actualidad", "🩺", Color(0xFFF4B2DE), imageRes = R.drawable.flora_de_pablo_portada),
-            ScientistStory("Cecilia Grierson", "MEDICINA, ENFERMERÍA Y SALUD PÚBLICA", "Argentina • 1859–1934", "🏥", Color(0xFF8CD8DA), imageRes = R.drawable.cecilia_grierson_portada),
+            ScientistStory("Rosalyn Yalow", "FÍSICA MÉDICA", "Estados Unidos • 1921–2011", "🩺", Color(0xFFFCDD81), imageRes = R.drawable.rosalyn_yalow_portada),
+            ScientistStory("Flora de Pablo", "BIOLOGÍA CELULAR", "España • 1952–Actualidad", "🩺", Color(0xFFF4B2DE), imageRes = R.drawable.flora_de_pablo_portada),
+            ScientistStory("Cecilia Grierson", "MEDICINA Y SALUD PÚBLICA", "Argentina • 1859–1934", "🏥", Color(0xFF8CD8DA), imageRes = R.drawable.cecilia_grierson_portada),
             ScientistStory("Patricia Bath", "OFTALMOLOGÍA", "Estados Unidos • 1942–2019", "👁️", Color(0xFFC9C1FF), imageRes = R.drawable.patricia_bath_portada),
             ScientistStory("Margaret Sanger", "SALUD REPRODUCTIVA", "Estados Unidos • 1879–1966", "🩺", Color(0xFFF4B2DE), imageRes = R.drawable.margaret_sanger_portada)
         )
         isAstronomia -> listOf(
-            ScientistStory("Caroline Herschel", "OBSERVACIÓN Y CATALOGACIÓN ASTRONÓMICA", "Alemania • 1750–1848", "🔭", Color(0xFFC9C1FF), imageRes = R.drawable.caroline_herschel_portada),
+            ScientistStory("Caroline Herschel", "OBSERVACIÓN ASTRONÓMICA", "Alemania • 1750–1848", "🔭", Color(0xFFC9C1FF), imageRes = R.drawable.caroline_herschel_portada),
             ScientistStory("Maria Mitchell", "ASTRONOMÍA OBSERVACIONAL", "Estados Unidos • 1818–1889", "🔭", Color(0xFFC9C1FF), imageRes = R.drawable.maria_mitchell_portada),
             ScientistStory("Henrietta Swan Leavitt", "FOTOMETRÍA ESTELAR", "Estados Unidos • 1868–1921", "⭐", Color(0xFFFCDD81), imageRes = R.drawable.henrietta_swan_leavitt_portada),
-            ScientistStory("Annie Jump Cannon", "CLASIFICACIÓN ESPECTRAL ESTELAR", "Estados Unidos • 1863–1941", "🌟", Color(0xFF8CD8DA), imageRes = R.drawable.annie_jump_cannon_portada),
+            ScientistStory("Annie Jump Cannon", "CLASIFICACIÓN ESPECTRAL", "Estados Unidos • 1863–1941", "🌟", Color(0xFF8CD8DA), imageRes = R.drawable.annie_jump_cannon_portada),
             ScientistStory("Nancy Grace Roman", "ASTRONOMÍA ESPACIAL", "Estados Unidos • 1925–2018", "🛰️", Color(0xFFF4B2DE), imageRes = R.drawable.nancy_grace_roman_portada)
         )
         isComputacion -> listOf(
-            ScientistStory("Ada Lovelace", "ALGORITMOS Y COMPUTACIÓN TEÓRICA", "Inglaterra • 1815–1852", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.ada_lovelace_portada),
-            ScientistStory("Evelyn Berezin", "SISTEMAS DIGITALES Y PROCESAMIENTO DE TEXTO", "Estados Unidos • 1925–2018", "⌨️", Color(0xFFC9C1FF), imageRes = R.drawable.evelyn_berezin_portada),
-            ScientistStory("Grace Murray Hopper", "LENGUAJES DE PROGRAMACIÓN Y COMPILADORES", "Estados Unidos • 1906–1992", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.grace_murray_hopper_portada),
-            ScientistStory("Jude Milhon", "CULTURA HACKER, REDES Y DERECHOS DIGITALES", "Estados Unidos • 1939–2003", "🌐", Color(0xFFC9C1FF), imageRes = R.drawable.jude_milhon_portada),
-            ScientistStory("Lynn Conway", "ARQUITECTURA DE COMPUTADORES Y DISEÑO VLSI", "Estados Unidos • 1938–2024", "🔌", Color(0xFFC9C1FF), imageRes = R.drawable.lynn_conway_portada)
+            ScientistStory("Ada Lovelace", "ALGORITMOS Y TEORÍA", "Inglaterra • 1815–1852", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.ada_lovelace_portada),
+            ScientistStory("Evelyn Berezin", "PROCESAMIENTO DE TEXTO", "Estados Unidos • 1925–2018", "⌨️", Color(0xFFC9C1FF), imageRes = R.drawable.evelyn_berezin_portada),
+            ScientistStory("Grace Murray Hopper", "COMPILADORES Y LENGUAJES", "Estados Unidos • 1906–1992", "💻", Color(0xFFC9C1FF), imageRes = R.drawable.grace_murray_hopper_portada),
+            ScientistStory("Jude Milhon", "CULTURA HACKER Y REDES", "Estados Unidos • 1939–2003", "🌐", Color(0xFFC9C1FF), imageRes = R.drawable.jude_milhon_portada),
+            ScientistStory("Lynn Conway", "DISEÑO VLSI Y ARQUITECTURA", "Estados Unidos • 1938–2024", "🔌", Color(0xFFC9C1FF), imageRes = R.drawable.lynn_conway_portada)
         )
         isIngenieria -> listOf(
-            ScientistStory("Hedy Lamarr", "COMUNICACIONES INALÁMBRICAS", "Austria-Hungría • 1914–2000", "📻", Color(0xFFFCDD81), imageRes = R.drawable.hedy_lamarr_portadas),
-            ScientistStory("Emily Warren Roebling", "GESTIÓN Y CONSTRUCCIÓN CIVIL", "Estados Unidos • 1843–1903", "🌉", Color(0xFFFCDD81), imageRes = R.drawable.emily_warren_roebling_portadas),
-            ScientistStory("Edith Clarke", "INGENIERÍA ELÉCTRICA Y SISTEMAS DE POTENCIA", "Estados Unidos • 1883–1959", "⚡", Color(0xFFFCDD81), imageRes = R.drawable.edith_clarkeedith_clarke_portadas),
-            ScientistStory("Elisa Leonida Zamfirescu", "INGENIERÍA QUÍMICA Y GEOLOGÍA", "Rumanía • 1887–1973", "⚗️", Color(0xFFFCDD81), imageRes = R.drawable.elisa_leonida_zamfirescu_portadas),
-            ScientistStory("Beatrice Shilling", "INGENIERÍA AERONÁUTICA Y MECÁNICA", "Inglaterra • 1909–1990", "✈️", Color(0xFFFCDD81), imageRes = R.drawable.beatrice_shilling_portadas)
+            ScientistStory("Hedy Lamarr", "COMUNICACIONES", "Austria-Hungría • 1914–2000", "📻", Color(0xFFFCDD81), imageRes = R.drawable.hedy_lamarr_portadas),
+            ScientistStory("Emily Warren Roebling", "CONSTRUCCIÓN CIVIL", "Estados Unidos • 1843–1903", "🌉", Color(0xFFFCDD81), imageRes = R.drawable.emily_warren_roebling_portadas),
+            ScientistStory("Edith Clarke", "INGENIERÍA ELÉCTRICA", "Estados Unidos • 1883–1959", "⚡", Color(0xFFFCDD81), imageRes = R.drawable.edith_clarkeedith_clarke_portadas),
+            ScientistStory("Elisa Leonida Zamfirescu", "INGENIERÍA QUÍMICA", "Rumanía • 1887–1973", "⚗️", Color(0xFFFCDD81), imageRes = R.drawable.elisa_leonida_zamfirescu_portadas),
+            ScientistStory("Beatrice Shilling", "INGENIERÍA AERONÁUTICA", "Inglaterra • 1909–1990", "✈️", Color(0xFFFCDD81), imageRes = R.drawable.beatrice_shilling_portadas)
         )
         else -> emptyList()
     }
@@ -275,10 +275,11 @@ fun CategoryDetailScreen(
                                     ) {
                                         Text(
                                             text = scientist.tag,
-                                            fontSize = 9.sp,
+                                            fontSize = 8.5.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = DataMujerDark,
-                                            maxLines = 1,
+                                            maxLines = 2,
+                                            lineHeight = 11.sp,
                                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
                                         )
                                     }
