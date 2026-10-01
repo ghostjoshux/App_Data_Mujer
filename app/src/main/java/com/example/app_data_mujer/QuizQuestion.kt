@@ -7,6 +7,13 @@ data class QuizQuestion(
     val correctOptionIndex: Int
 )
 
+fun QuizQuestion.shuffledOptions(): QuizQuestion {
+    val correctAnswer = options[correctOptionIndex]
+    val shuffled = options.shuffled()
+    val newCorrectIndex = shuffled.indexOf(correctAnswer)
+    return copy(options = shuffled, correctOptionIndex = newCorrectIndex)
+}
+
 val EasyQuestionsList = listOf(
     QuizQuestion("Matemáticas", "¿En qué área destacó Sophie Germain?", listOf("Medicina", "Matemáticas", "Astronomía", "Biología"), 1),
     QuizQuestion("Matemáticas", "¿Qué científica es conocida por los “primos de Sophie Germain”?", listOf("Emmy Noether", "Sophie Germain", "Maryam Mirzakhani", "Ada Lovelace"), 1),

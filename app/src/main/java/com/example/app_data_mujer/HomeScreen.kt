@@ -236,7 +236,10 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
                                 "difícil" -> HardQuestionsList to 15
                                 else -> EasyQuestionsList to 5
                             }
-                            currentQuestionsSet = sourceList.shuffled().take(count)
+                            currentQuestionsSet = sourceList
+                                .shuffled()
+                                .take(count)
+                                .map { it.shuffledOptions() }
                             activeGameScreen = true
                         }
                     )
