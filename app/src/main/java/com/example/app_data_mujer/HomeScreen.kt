@@ -624,43 +624,173 @@ fun GameQuizContent(questions: List<QuizQuestion>, difficulty: String, onFinish:
     val currentQuestion = questions[currentQuestionIndex]
 
     if (quizFinished) {
-        Box(modifier = Modifier.fillMaxWidth().height(600.dp)) {
+        val minutes = timeElapsed / 60
+        val seconds = timeElapsed % 60
+        val timeFormatted = "%d:%02d".format(minutes, seconds)
+
+        Box(modifier = Modifier.fillMaxWidth()) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 32.dp),
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(Icons.Default.Star, contentDescription = null, tint = DataMujerYellow, modifier = Modifier.size(72.dp))
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("¡Reto Terminado!", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = DataMujerDark)
-                Spacer(modifier = Modifier.height(8.dp))
-                
-                val minutes = timeElapsed / 60
-                val seconds = timeElapsed % 60
-                val timeStr = if (minutes > 0) "${minutes}m ${seconds}s" else "${seconds} segundos"
-                
-                Text("Tiempo: $timeStr", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = DataMujerTeal)
-                Text("Has acumulado $points puntos de ciencia.", fontSize = 16.sp, color = Color.Gray)
-                
-                Spacer(modifier = Modifier.height(32.dp))
+
+                // Large Circular Score Badge (e.g. 4/5, 8/10, 12/15)
+                Box(
+                    modifier = Modifier
+                        .size(140.dp)
+                        .clip(CircleShape)
+                        .background(DataMujerTeal.copy(alpha = 0.2f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(105.dp)
+                            .clip(CircleShape)
+                            .background(DataMujerTeal),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "$correctAnswersCount/${questions.size}",
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Title & Subtitle
+                Text(
+                    text = "¡Misión cumplida!",
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = DataMujerDark
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = "Conoces muchísimo sobre mujeres en la ciencia.",
+                    fontSize = 14.sp,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 32.dp)
+                )
+
+                Spacer(modifier = Modifier.height(28.dp))
+
+                // Stats Card (Correctas | Tiempo)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xFFF7F8FA)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 18.dp, horizontal = 24.dp),
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Correctas Stat
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "$correctAnswersCount",
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = DataMujerTeal
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "Correctas",
+                                fontSize = 12.sp,
+                                color = Color.Gray
+                            )
+                        }
+
+                        VerticalDivider(
+                            modifier = Modifier.height(36.dp),
+                            color = Color.LightGray.copy(alpha = 0.5f)
+                        )
+
+                        // Tiempo Stat
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = timeFormatted,
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = DataMujerDark
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "Tiempo",
+                                fontSize = 12.sp,
+                                color = Color.Gray
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(36.dp))
+
+                // Button 1: Volver a jugar
                 Button(
+                    onClick = {
+                        currentQuestionIndex = 0
+                        selectedOptionIndex = -1
+                        confirmed = false
+                        timeElapsed = 0
+                        correctAnswersCount = 0
+                        quizFinished = false
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .padding(horizontal = 16.dp),
+                    shape = RoundedCornerShape(28.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = DataMujerDark)
+                ) {
+                    Text(
+                        text = "Volver a jugar",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Button 2: Explorar científicas
+                OutlinedButton(
                     onClick = onFinish,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = DataMujerTeal)
+                        .height(56.dp)
+                        .padding(horizontal = 16.dp),
+                    shape = RoundedCornerShape(28.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color.LightGray)
                 ) {
-                    Text("Volver al inicio", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(
+                        text = "Explorar científicas",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = DataMujerDark
+                    )
                 }
+
+                Spacer(modifier = Modifier.height(32.dp))
             }
-            
-            // Confetti if user gets enough correct answers based on difficulty
+
+            // Confetti if user gets enough correct answers
             val threshold = when (difficulty) {
                 "fácil" -> 3
                 "intermedio" -> 5
-                else -> 7 // "difícil"
+                else -> 7
             }
             if (correctAnswersCount >= threshold) {
                 ConfettiOverlay()
@@ -895,7 +1025,12 @@ fun GameQuizContent(questions: List<QuizQuestion>, difficulty: String, onFinish:
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "🔥 $points puntos de ciencia", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFFE57373))
+                Text(
+                    text = "✨ $correctAnswersCount de ${questions.size} correctas",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = DataMujerTeal
+                )
             }
             Spacer(modifier = Modifier.height(32.dp))
         }
