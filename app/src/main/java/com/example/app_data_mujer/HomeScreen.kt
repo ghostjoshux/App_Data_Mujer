@@ -12,7 +12,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material.icons.filled.Star
@@ -48,6 +52,28 @@ data class CategoryItem(
     val backgroundColor: Color,
     val textColor: Color = Color.Black
 )
+
+val allScientistsList = listOf(
+    "Sophie Germain", "Sofía Kovalevskaya", "Emmy Noether", "Maryam Mirzakhani", "Sun-Yung Alice Chang",
+    "Lise Meitner", "Mary Tsingou", "Donna Strickland", "Helen Czerski",
+    "Stephanie Kwolek", "Marie-Anne Pierrette Paulze-Lavoisier", "Irène Joliot-Curie", "Marie Curie", "Rosalind Franklin",
+    "Margarita Salas", "Barbara McClintock", "Lynn Margulis", "Nettie Stevens", "Elizabeth Blackburn",
+    "Rosalyn Yalow", "Flora de Pablo", "Cecilia Grierson", "Patricia Bath", "Margaret Sanger",
+    "Caroline Herschel", "Maria Mitchell", "Henrietta Swan Leavitt", "Annie Jump Cannon", "Nancy Grace Roman",
+    "Ada Lovelace", "Evelyn Berezin", "Grace Murray Hopper", "Jude Milhon", "Lynn Conway",
+    "Hedy Lamarr", "Emily Warren Roebling", "Edith Clarke", "Elisa Leonida Zamfirescu", "Beatrice Shilling"
+)
+
+object SurpriseMeDeck {
+    private val deck = mutableListOf<String>()
+
+    fun getNextScientist(): String {
+        if (deck.isEmpty()) {
+            deck.addAll(allScientistsList.shuffled())
+        }
+        return deck.removeAt(0)
+    }
+}
 
 fun getCategoryForScientist(name: String): String {
     val n = name.lowercase()
@@ -218,7 +244,7 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
             var currentQuestionsSet by remember { mutableStateOf<List<QuizQuestion>>(emptyList()) }
 
             if (selectedTab == "explorar") {
-                ExploreContent(username, categories, onCategoryClick)
+                ExploreContent(username, categories, onCategoryClick, onScientistClick)
             } else if (selectedTab == "quiz") {
                 if (activeGameScreen) {
                     GameQuizContent(
@@ -342,7 +368,12 @@ fun HomeScreen(username: String, onCategoryClick: (String) -> Unit, onAboutClick
 }
 
 @Composable
-fun ExploreContent(username: String, categories: List<CategoryItem>, onCategoryClick: (String) -> Unit) {
+fun ExploreContent(
+    username: String,
+    categories: List<CategoryItem>,
+    onCategoryClick: (String) -> Unit,
+    onScientistClick: (String) -> Unit
+) {
     Column {
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -365,6 +396,74 @@ fun ExploreContent(username: String, categories: List<CategoryItem>, onCategoryC
                 .padding(top = 4.dp),
             textAlign = TextAlign.Center
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Surprise Me Card ("Sorpréndeme")
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    val randomScientist = SurpriseMeDeck.getNextScientist()
+                    onScientistClick(randomScientist)
+                },
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFDCF5F6)),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.dado),
+                        contentDescription = "Sorpréndeme",
+                        modifier = Modifier
+                            .size(56.dp)
+                            .clip(RoundedCornerShape(12.dp)),
+                        contentScale = ContentScale.Fit
+                    )
+
+                    Column {
+                        Text(
+                            text = "Sorpréndeme",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = DataMujerDark
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "Descubre una científica al azar",
+                            fontSize = 13.sp,
+                            color = Color.DarkGray
+                        )
+                    }
+                }
+
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(Color.White),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = "Ir",
+                        tint = DataMujerDark,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider(color = DataMujerPink.copy(alpha = 0.5f), thickness = 1.dp)
