@@ -16,6 +16,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        FavoritesManager.init(applicationContext)
+
         val sharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val savedUsername = sharedPrefs.getString("username", null)
 
